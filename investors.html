@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MyFuture — Charting the next generation of African talent</title>
+<meta name="description" content="MyFuture is an AI-powered guidance platform helping African learners discover, plan, and pursue the academic and career paths that fit who they actually are." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,700;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --ink: #0e1518;
+    --ink-2: #131c20;
+    --ink-3: #1b252a;
+    --paper: #f4ede1;
+    --paper-soft: #ebe2d2;
+    --bone: #d8cdb8;
+    --rule: #2a363c;
+    --rule-light: rgba(244, 237, 225, 0.12);
+    --ochre: #d97e2c;
+    --amber: #e9a23b;
+    --rust: #b3471f;
+    --sage: #889b7c;
+    --signal: #e9a23b;
+    --shadow: 0 30px 80px -40px rgba(0,0,0,0.6);
+
+    --display: 'Fraunces', 'Times New Roman', serif;
+    --body: 'Manrope', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.55;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--ochre); color: var(--ink); }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* Subtle film-grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  /* ---------- NAV ---------- */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    padding: 22px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(14,21,24,0.92), rgba(14,21,24,0));
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .logo {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    font-style: italic;
+    display: flex; align-items: baseline; gap: 6px;
+  }
+  .logo .dot {
+    width: 8px; height: 8px;
+    background: var(--ochre);
+    border-radius: 50%;
+    display: inline-block;
+    transform: translateY(-2px);
+  }
+  .nav-links {
+    display: flex; gap: 32px;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .nav-links a { opacity: 0.7; transition: opacity 0.2s; }
+  .nav-links a:hover { opacity: 1; }
+  .nav-cta {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 10px 18px;
+    border: 1px solid var(--paper);
+    border-radius: 999px;
+    transition: all 0.25s;
+  }
+  .nav-cta:hover { background: var(--paper); color: var(--ink); }
+
+  @media (max-width: 800px) {
+    .nav { padding: 18px 22px; }
+    .nav-links { display: none; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    min-height: 100vh;
+    padding: 140px 40px 80px;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 60px;
+    align-items: end;
+    overflow: hidden;
+  }
+
+  .hero-meta {
+    position: absolute;
+    top: 110px;
+    left: 40px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.6;
+    display: flex; gap: 24px;
+  }
+  .hero-meta span:not(:last-child)::after {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 1px;
+    background: var(--bone);
+    margin-left: 24px;
+    transform: translateY(-3px);
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--ochre);
+  }
+
+  h1.hero-title {
+    font-family: var(--display);
+    font-size: clamp(48px, 8vw, 112px);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    font-weight: 400;
+    margin: 0 0 36px;
+    color: var(--paper);
+  }
+  h1.hero-title em {
+    font-style: italic;
+    color: var(--amber);
+    font-weight: 300;
+  }
+  h1.hero-title .stroke {
+    -webkit-text-stroke: 1px var(--paper);
+    color: transparent;
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--bone);
+    max-width: 520px;
+    margin-bottom: 42px;
+  }
+
+  .hero-cta-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .btn-primary {
+    background: var(--ochre);
+    color: var(--ink);
+    padding: 16px 28px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.25s;
+  }
+  .btn-primary:hover { background: var(--amber); transform: translateY(-2px); }
+  .btn-primary svg { transition: transform 0.25s; }
+  .btn-primary:hover svg { transform: translateX(4px); }
+
+  .btn-ghost {
+    color: var(--paper);
+    padding: 16px 4px;
+    font-weight: 500;
+    font-size: 14px;
+    border-bottom: 1px solid var(--rule-light);
+    transition: border-color 0.25s;
+  }
+  .btn-ghost:hover { border-color: var(--paper); }
+
+  /* Hero visual — animated arc map */
+  .hero-visual {
+    position: relative;
+    aspect-ratio: 1 / 1.05;
+    max-width: 460px;
+    justify-self: end;
+    width: 100%;
+  }
+  .hero-visual svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .arc {
+    fill: none;
+    stroke: var(--ochre);
+    stroke-width: 1;
+    opacity: 0.5;
+  }
+  .node {
+    fill: var(--amber);
+  }
+  .node-ring {
+    fill: none;
+    stroke: var(--amber);
+    stroke-width: 1;
+    opacity: 0.4;
+    transform-origin: center;
+    animation: pulse 3s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.6); opacity: 0; }
+  }
+  .draw {
+    stroke-dasharray: 800;
+    stroke-dashoffset: 800;
+    animation: draw 2.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  }
+  .draw-1 { animation-delay: 0.4s; }
+  .draw-2 { animation-delay: 0.7s; }
+  .draw-3 { animation-delay: 1.0s; }
+  .draw-4 { animation-delay: 1.3s; }
+  .draw-5 { animation-delay: 1.6s; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+
+  .hero-visual .label {
+    fill: var(--bone);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fade 0.6s ease forwards;
+  }
+  .hero-visual .label.l1 { animation-delay: 1.4s; }
+  .hero-visual .label.l2 { animation-delay: 1.7s; }
+  .hero-visual .label.l3 { animation-delay: 2.0s; }
+  .hero-visual .label.l4 { animation-delay: 2.3s; }
+  @keyframes fade { from { opacity: 0; } to { opacity: 0.85; } }
+
+  .hero-corner {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.5;
+    text-align: right;
+  }
+
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 130px 22px 60px;
+    }
+    .hero-meta { left: 22px; font-size: 10px; gap: 14px; }
+    .hero-meta span:not(:last-child)::after { width: 12px; margin-left: 14px; }
+    .hero-visual { justify-self: start; max-width: 360px; margin-top: 20px; }
+    .hero-corner { display: none; }
+  }
+
+  /* ---------- TICKER ---------- */
+  .ticker {
+    border-top: 1px solid var(--rule-light);
+    border-bottom: 1px solid var(--rule-light);
+    padding: 22px 0;
+    overflow: hidden;
+    background: var(--ink-2);
+  }
+  .ticker-track {
+    display: flex;
+    gap: 70px;
+    white-space: nowrap;
+    animation: ticker 38s linear infinite;
+    width: max-content;
+  }
+  .ticker-item {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 24px;
+    color: var(--paper-soft);
+    display: flex;
+    align-items: center;
+    gap: 70px;
+  }
+  .ticker-item::after {
+    content: '✦';
+    color: var(--ochre);
+    font-style: normal;
+    font-size: 14px;
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ---------- SECTION ARCHITECTURE ---------- */
+  section { padding: 120px 40px; position: relative; }
+  @media (max-width: 800px) { section { padding: 80px 22px; } }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 60px;
+    align-items: start;
+    margin-bottom: 70px;
+  }
+  .section-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    padding-top: 14px;
+    border-top: 1px solid var(--ochre);
+  }
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(36px, 5.5vw, 68px);
+    line-height: 1.0;
+    letter-spacing: -0.025em;
+    font-weight: 400;
+    margin: 0;
+  }
+  .section-title em { font-style: italic; color: var(--amber); font-weight: 300; }
+
+  @media (max-width: 800px) {
+    .section-head { grid-template-columns: 1fr; gap: 22px; margin-bottom: 50px; }
+  }
+
+  /* ---------- THE PROBLEM ---------- */
+  .problem {
+    background: var(--ink-2);
+    border-top: 1px solid var(--rule-light);
+    border-bottom: 1px solid var(--rule-light);
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule-light);
+  }
+  .stat {
+    padding: 36px 28px;
+    border-right: 1px solid var(--rule-light);
+    border-bottom: 1px solid var(--rule-light);
+    position: relative;
+  }
+  .stat:nth-child(4n) { border-right: none; }
+  .stat-num {
+    font-family: var(--display);
+    font-size: 64px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-weight: 300;
+    color: var(--amber);
+    margin-bottom: 16px;
+  }
+  .stat-num sup {
+    font-size: 22px;
+    color: var(--paper);
+    margin-left: 4px;
+    vertical-align: top;
+    top: 0.4em;
+    position: relative;
+  }
+  .stat-label {
+    font-size: 14px;
+    color: var(--bone);
+    line-height: 1.5;
+  }
+  .stat-source {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.5;
+    margin-top: 18px;
+  }
+  @media (max-width: 900px) {
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(4n) { border-right: 1px solid var(--rule-light); }
+    .stat:nth-child(2n) { border-right: none; }
+  }
+  @media (max-width: 500px) {
+    .stat-grid { grid-template-columns: 1fr; }
+    .stat { border-right: none !important; }
+    .stat-num { font-size: 48px; }
+  }
+
+  .problem-quote {
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 60px;
+  }
+  .problem-quote .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.6;
+  }
+  .problem-quote blockquote {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(24px, 3vw, 38px);
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin: 0;
+    color: var(--paper);
+  }
+  .problem-quote blockquote::before {
+    content: '“';
+    color: var(--ochre);
+    font-size: 1.4em;
+    line-height: 0;
+    margin-right: 4px;
+    position: relative;
+    top: 0.2em;
+  }
+  .problem-quote blockquote::after { content: '”'; color: var(--ochre); margin-left: 4px; }
+  @media (max-width: 800px) {
+    .problem-quote { grid-template-columns: 1fr; gap: 16px; }
+  }
+
+  /* ---------- PRODUCT ---------- */
+  .product-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .product-card {
+    background: var(--ink-2);
+    border: 1px solid var(--rule-light);
+    border-radius: 18px;
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .product-card::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--ochre), transparent);
+  }
+  .device-frame {
+    aspect-ratio: 9 / 16;
+    max-width: 280px;
+    margin: 0 auto;
+    background: var(--ink);
+    border: 1px solid var(--rule);
+    border-radius: 32px;
+    padding: 14px;
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+  .device-screen {
+    background: linear-gradient(180deg, #1a242a 0%, #0e1518 100%);
+    border-radius: 22px;
+    height: 100%;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow: hidden;
+  }
+  .device-greeting {
+    font-family: var(--display);
+    font-size: 18px;
+    line-height: 1.2;
+    color: var(--paper);
+    margin-bottom: 8px;
+  }
+  .device-greeting em { font-style: italic; color: var(--amber); }
+  .chip-row { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip {
+    font-family: var(--mono);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 4px 8px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    color: var(--bone);
+  }
+  .chip.active { background: var(--ochre); color: var(--ink); border-color: var(--ochre); }
+  .device-result {
+    background: rgba(217, 126, 44, 0.08);
+    border: 1px solid rgba(217, 126, 44, 0.25);
+    border-radius: 12px;
+    padding: 12px;
+  }
+  .device-result-label {
+    font-family: var(--mono);
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--ochre);
+    margin-bottom: 6px;
+  }
+  .device-result-title {
+    font-family: var(--display);
+    font-size: 14px;
+    line-height: 1.2;
+    color: var(--paper);
+  }
+  .device-bar { display: flex; gap: 4px; align-items: end; height: 36px; margin-top: 8px; }
+  .device-bar div {
+    flex: 1;
+    background: var(--amber);
+    border-radius: 2px;
+    opacity: 0.4;
+    animation: barRise 1.6s cubic-bezier(0.65,0,0.35,1) forwards;
+  }
+  .device-bar div:nth-child(1) { height: 30%; animation-delay: 0.1s; }
+  .device-bar div:nth-child(2) { height: 60%; animation-delay: 0.2s; opacity: 0.7; }
+  .device-bar div:nth-child(3) { height: 90%; animation-delay: 0.3s; opacity: 1; }
+  .device-bar div:nth-child(4) { height: 50%; animation-delay: 0.4s; opacity: 0.6; }
+  .device-bar div:nth-child(5) { height: 75%; animation-delay: 0.5s; opacity: 0.85; }
+  @keyframes barRise { from { transform: scaleY(0); transform-origin: bottom; } }
+
+  .feature-list { display: flex; flex-direction: column; gap: 28px; }
+  .feature {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 22px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--rule-light);
+  }
+  .feature:last-child { border-bottom: none; }
+  .feature-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ochre);
+    letter-spacing: 0.1em;
+    padding-top: 2px;
+  }
+  .feature h3 {
+    font-family: var(--display);
+    font-size: 22px;
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    font-weight: 500;
+    margin: 0 0 10px;
+    color: var(--paper);
+  }
+  .feature p {
+    margin: 0;
+    color: var(--bone);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  @media (max-width: 800px) {
+    .product-grid { grid-template-columns: 1fr; gap: 50px; }
+  }
+
+  /* ---------- TRACTION ---------- */
+  .traction {
+    background: var(--ink-2);
+    border-top: 1px solid var(--rule-light);
+    border-bottom: 1px solid var(--rule-light);
+  }
+
+  .traction-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    align-items: stretch;
+  }
+  .traction-numbers {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .traction-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--rule-light);
+    gap: 24px;
+  }
+  .traction-label {
+    font-size: 14px;
+    color: var(--bone);
+  }
+  .traction-value {
+    font-family: var(--display);
+    font-size: 44px;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    color: var(--paper);
+    line-height: 1;
+  }
+  .traction-value em { font-style: italic; color: var(--amber); font-weight: 300; }
+
+  .chart-card {
+    background: var(--ink);
+    border: 1px solid var(--rule-light);
+    border-radius: 18px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+  }
+  .chart-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.7;
+    margin-bottom: 6px;
+  }
+  .chart-sub {
+    font-family: var(--display);
+    font-size: 22px;
+    line-height: 1.2;
+    margin-bottom: 28px;
+    letter-spacing: -0.015em;
+  }
+  .chart-sub em { font-style: italic; color: var(--amber); }
+  .chart-svg-wrap { flex: 1; }
+  .chart-svg-wrap svg { width: 100%; height: auto; display: block; }
+  .chart-grid line { stroke: var(--rule-light); stroke-width: 0.5; }
+  .chart-axis text {
+    font-family: var(--mono);
+    font-size: 9px;
+    fill: var(--bone);
+    opacity: 0.6;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .chart-area { fill: url(#areaGrad); opacity: 0.85; }
+  .chart-line { fill: none; stroke: var(--ochre); stroke-width: 1.5; }
+  .chart-dot { fill: var(--amber); stroke: var(--ink); stroke-width: 2; }
+
+  @media (max-width: 800px) {
+    .traction-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  /* ---------- BUSINESS MODEL ---------- */
+  .model-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .model-card {
+    border: 1px solid var(--rule-light);
+    border-radius: 18px;
+    padding: 36px 30px;
+    background: var(--ink-2);
+    position: relative;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .model-card:hover { transform: translateY(-4px); border-color: var(--ochre); }
+  .model-card .glyph {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(217,126,44,0.15), rgba(233,162,59,0.05));
+    border: 1px solid rgba(217,126,44,0.3);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 22px;
+  }
+  .model-card .glyph svg { width: 20px; height: 20px; stroke: var(--amber); fill: none; stroke-width: 1.4; }
+  .model-card h3 {
+    font-family: var(--display);
+    font-size: 24px;
+    line-height: 1.15;
+    margin: 0 0 14px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .model-card .price {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ochre);
+    letter-spacing: 0.1em;
+    margin-bottom: 18px;
+  }
+  .model-card p {
+    margin: 0;
+    color: var(--bone);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  @media (max-width: 800px) { .model-grid { grid-template-columns: 1fr; gap: 18px; } }
+
+  /* ---------- TEAM ---------- */
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  .team-card {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .team-portrait {
+    aspect-ratio: 4/5;
+    border-radius: 12px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--ink-3), var(--ink-2));
+    border: 1px solid var(--rule-light);
+    position: relative;
+  }
+  .team-portrait svg { width: 100%; height: 100%; display: block; }
+  .team-name {
+    font-family: var(--display);
+    font-size: 24px;
+    letter-spacing: -0.015em;
+    font-weight: 500;
+    margin: 0;
+  }
+  .team-role {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ochre);
+  }
+  .team-bio {
+    color: var(--bone);
+    font-size: 14px;
+    line-height: 1.55;
+    margin: 4px 0 0;
+  }
+  @media (max-width: 800px) { .team-grid { grid-template-columns: 1fr; gap: 30px; } }
+
+  /* ---------- THE ASK ---------- */
+  .ask {
+    background: var(--paper);
+    color: var(--ink);
+    position: relative;
+  }
+  .ask::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(217,126,44,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(179,71,31,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .ask .section-num { color: var(--rust); border-color: var(--rust); }
+  .ask .section-title em { color: var(--rust); }
+
+  .ask-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-top: 50px;
+    position: relative;
+  }
+  .ask-headline {
+    font-family: var(--display);
+    font-size: clamp(40px, 6vw, 84px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+    margin: 0 0 30px;
+  }
+  .ask-headline em { font-style: italic; color: var(--rust); font-weight: 300; }
+  .ask-text {
+    font-size: 17px;
+    line-height: 1.6;
+    color: #4a4138;
+    max-width: 480px;
+  }
+  .ask-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid rgba(14,21,24,0.15);
+  }
+  .ask-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 80px;
+    gap: 20px;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(14,21,24,0.15);
+    align-items: baseline;
+  }
+  .ask-pct {
+    font-family: var(--display);
+    font-size: 28px;
+    font-style: italic;
+    color: var(--rust);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+  .ask-cat {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .ask-cat small {
+    display: block;
+    font-weight: 400;
+    color: #6b5e50;
+    font-size: 13px;
+    margin-top: 2px;
+  }
+  .ask-amt {
+    text-align: right;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: #6b5e50;
+    letter-spacing: 0.05em;
+  }
+
+  .ask-cta {
+    margin-top: 60px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+  }
+  .btn-dark {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 18px 32px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.25s;
+  }
+  .btn-dark:hover { background: var(--rust); transform: translateY(-2px); }
+  .btn-quiet {
+    color: var(--ink);
+    padding: 18px 4px;
+    font-weight: 500;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(14,21,24,0.3);
+  }
+  .btn-quiet:hover { border-color: var(--ink); }
+
+  @media (max-width: 900px) {
+    .ask-body { grid-template-columns: 1fr; gap: 40px; }
+    .ask-row { grid-template-columns: 60px 1fr; gap: 14px; }
+    .ask-amt { grid-column: 2; text-align: left; padding-top: 4px; }
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    padding: 60px 40px 40px;
+    border-top: 1px solid var(--rule-light);
+    background: var(--ink);
+  }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 50px;
+  }
+  .foot-brand {
+    font-family: var(--display);
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    font-style: italic;
+    margin-bottom: 14px;
+  }
+  .foot-tag {
+    color: var(--bone);
+    font-size: 14px;
+    line-height: 1.55;
+    max-width: 300px;
+  }
+  .foot-col h4 {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    margin: 0 0 18px;
+    font-weight: 500;
+  }
+  .foot-col a {
+    display: block;
+    color: var(--bone);
+    font-size: 14px;
+    padding: 4px 0;
+    transition: color 0.2s;
+  }
+  .foot-col a:hover { color: var(--paper); }
+  .foot-bottom {
+    border-top: 1px solid var(--rule-light);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.6;
+  }
+  @media (max-width: 800px) {
+    .foot-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+    footer { padding: 40px 22px 30px; }
+  }
+
+  /* ---------- REVEAL ANIMATION ---------- */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s, transform 0.9s; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ========== NAV ========== -->
+<nav class="nav">
+  <a href="#" class="logo"><span class="dot"></span> MyFuture</a>
+  <div class="nav-links">
+    <a href="#problem">Problem</a>
+    <a href="#product">Product</a>
+    <a href="#traction">Traction</a>
+    <a href="#team">Team</a>
+    <a href="#ask">The ask</a>
+  </div>
+  <a href="#ask" class="nav-cta">Investor deck →</a>
+</nav>
+
+<!-- ========== HERO ========== -->
+<header class="hero">
+  <div class="hero-meta">
+    <span>Seed round / open</span>
+    <span>Johannesburg · Lagos · Nairobi</span>
+    <span>v 2.4</span>
+  </div>
+
+  <div>
+    <div class="eyebrow">Investor brief — 2026</div>
+    <h1 class="hero-title">
+      Charting the<br>
+      <em>next generation</em><br>
+      of African <span class="stroke">talent.</span>
+    </h1>
+    <p class="hero-sub">
+      MyFuture is an AI-powered guidance platform that helps African learners discover the academic and career paths that fit who they actually are — and gives schools, governments, and employers the data to invest in them.
+    </p>
+    <div class="hero-cta-row">
+      <a href="#ask" class="btn-primary">
+        Read the investor brief
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </a>
+      <a href="#product" class="btn-ghost">See the product</a>
+    </div>
+  </div>
+
+  <!-- Hero visual: stylized constellation map -->
+  <div class="hero-visual" aria-hidden="true">
+    <svg viewBox="0 0 460 480">
+      <defs>
+        <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e9a23b" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="#e9a23b" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- ambient halo -->
+      <circle cx="230" cy="240" r="200" fill="url(#glow)"/>
+
+      <!-- concentric rings -->
+      <circle cx="230" cy="240" r="60"  class="arc"/>
+      <circle cx="230" cy="240" r="110" class="arc" stroke-dasharray="2 4"/>
+      <circle cx="230" cy="240" r="170" class="arc"/>
+      <circle cx="230" cy="240" r="220" class="arc" stroke-dasharray="2 4" opacity="0.25"/>
+
+      <!-- connecting arcs (paths from learner to outcomes) -->
+      <path class="arc draw draw-1" stroke-width="1.2" d="M230 240 Q 100 160, 80 80"/>
+      <path class="arc draw draw-2" stroke-width="1.2" d="M230 240 Q 360 180, 410 90"/>
+      <path class="arc draw draw-3" stroke-width="1.2" d="M230 240 Q 80 320, 60 410"/>
+      <path class="arc draw draw-4" stroke-width="1.2" d="M230 240 Q 380 320, 410 410"/>
+      <path class="arc draw draw-5" stroke-width="1.2" d="M230 240 Q 230 100, 230 30"/>
+
+      <!-- centre node (learner) -->
+      <circle cx="230" cy="240" r="10" class="node"/>
+      <circle cx="230" cy="240" r="14" class="node-ring"/>
+
+      <!-- outcome nodes -->
+      <circle cx="80"  cy="80"  r="4" class="node"/>
+      <circle cx="410" cy="90"  r="4" class="node"/>
+      <circle cx="60"  cy="410" r="4" class="node"/>
+      <circle cx="410" cy="410" r="4" class="node"/>
+      <circle cx="230" cy="30"  r="4" class="node"/>
+
+      <!-- crosshair small ticks -->
+      <g stroke="#e9a23b" stroke-width="0.8" opacity="0.4">
+        <line x1="220" y1="240" x2="200" y2="240"/>
+        <line x1="240" y1="240" x2="260" y2="240"/>
+        <line x1="230" y1="230" x2="230" y2="210"/>
+        <line x1="230" y1="250" x2="230" y2="270"/>
+      </g>
+
+      <!-- labels -->
+      <text x="80"  y="68"  class="label l1" text-anchor="middle">Universities</text>
+      <text x="410" y="78"  class="label l2" text-anchor="middle">Bursaries</text>
+      <text x="60"  y="430" class="label l3" text-anchor="middle">Apprenticeships</text>
+      <text x="410" y="430" class="label l4" text-anchor="middle">Employers</text>
+      <text x="230" y="460" class="label l1" text-anchor="middle" opacity="0.6">— learner —</text>
+    </svg>
+  </div>
+
+  <div class="hero-corner">
+    Lat −26.20° / Lon 28.04°<br>
+    Built in Johannesburg
+  </div>
+</header>
+
+<!-- ========== TICKER ========== -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">A continent of 1.4 billion</span>
+    <span class="ticker-item">70% under 30</span>
+    <span class="ticker-item">A guidance counsellor for every learner</span>
+    <span class="ticker-item">Built for Africa, by Africans</span>
+    <span class="ticker-item">Data the continent has never had</span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item">A continent of 1.4 billion</span>
+    <span class="ticker-item">70% under 30</span>
+    <span class="ticker-item">A guidance counsellor for every learner</span>
+    <span class="ticker-item">Built for Africa, by Africans</span>
+    <span class="ticker-item">Data the continent has never had</span>
+  </div>
+</div>
+
+<!-- ========== PROBLEM ========== -->
+<section class="problem" id="problem">
+  <div class="section-head reveal">
+    <div class="section-num">01 — The problem</div>
+    <h2 class="section-title">A generation routed by <em>guesswork.</em></h2>
+  </div>
+
+  <div class="stat-grid reveal">
+    <div class="stat">
+      <div class="stat-num">1<sup>:800</sup></div>
+      <div class="stat-label">Average ratio of guidance counsellors to learners across sub-Saharan Africa.</div>
+      <div class="stat-source">— Indicative, multi-source</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">42<sup>%</sup></div>
+      <div class="stat-label">Of first-year university students in SA change majors or drop out within 12 months.</div>
+      <div class="stat-source">— Sector estimates</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">11M</div>
+      <div class="stat-label">Matric and post-secondary learners across our priority markets each year.</div>
+      <div class="stat-source">— ZA · NG · KE</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">0</div>
+      <div class="stat-label">National datasets that link aptitude → pathway → outcome. We are building the first.</div>
+      <div class="stat-source">— The opportunity</div>
+    </div>
+  </div>
+
+  <div class="problem-quote reveal">
+    <div class="label">Field note</div>
+    <blockquote>
+      Most African learners choose a course because someone in their family did it, or because the prospectus arrived first. The cost of that misalignment compounds for life.
+    </blockquote>
+  </div>
+</section>
+
+<!-- ========== PRODUCT ========== -->
+<section id="product">
+  <div class="section-head reveal">
+    <div class="section-num">02 — The product</div>
+    <h2 class="section-title">A guidance counsellor in <em>every pocket.</em></h2>
+  </div>
+
+  <div class="product-grid">
+    <div class="product-card reveal">
+      <div class="device-frame">
+        <div class="device-screen">
+          <div style="display:flex; justify-content:space-between; align-items:center; font-family: var(--mono); font-size:9px; color:var(--bone); opacity:0.6; letter-spacing: 0.1em;">
+            <span>09:24</span><span>● MYFUTURE</span>
+          </div>
+          <div class="device-greeting">Morning, <em>Thandi</em>. Let's keep going.</div>
+          <div class="chip-row">
+            <span class="chip active">Aptitude</span>
+            <span class="chip">Interests</span>
+            <span class="chip">Cost</span>
+            <span class="chip">Visa</span>
+          </div>
+          <div class="device-result">
+            <div class="device-result-label">Top match · 94% fit</div>
+            <div class="device-result-title">BSc Data Science<br>UCT — funded pathway available</div>
+            <div class="device-bar">
+              <div></div><div></div><div></div><div></div><div></div>
+            </div>
+          </div>
+          <div class="device-result" style="background: rgba(136,155,124,0.08); border-color: rgba(136,155,124,0.25);">
+            <div class="device-result-label" style="color:var(--sage);">Alt path · 87%</div>
+            <div class="device-result-title" style="font-size:13px;">Actuarial apprenticeship<br>Old Mutual · 4 yrs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-list reveal">
+      <div class="feature">
+        <div class="feature-num">/01</div>
+        <div>
+          <h3>Adaptive aptitude engine</h3>
+          <p>A 20-minute multi-modal assessment — culturally calibrated for African contexts — that maps cognitive strengths, interests, and constraints into a learner's unique signal.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-num">/02</div>
+        <div>
+          <h3>Pathway recommender</h3>
+          <p>An AI agent that ranks degrees, apprenticeships, and skills tracks against the learner's signal — weighted for affordability, employability, and visa or geographic constraints.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-num">/03</div>
+        <div>
+          <h3>Bursary &amp; opportunity matching</h3>
+          <p>Automatically surfaces funding, scholarships, and apprenticeship slots the learner actually qualifies for — and pre-fills the application.</p>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-num">/04</div>
+        <div>
+          <h3>School &amp; employer dashboards</h3>
+          <p>Counsellors, governments, and employers see anonymised cohort-level signal: where the talent is, what it needs, and where to invest.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TRACTION ========== -->
+<section class="traction" id="traction">
+  <div class="section-head reveal">
+    <div class="section-num">03 — Traction</div>
+    <h2 class="section-title">Quiet numbers, <em>loud trajectory.</em></h2>
+  </div>
+
+  <div class="traction-grid">
+    <div class="traction-numbers reveal">
+      <div class="traction-row">
+        <div class="traction-label">Learners onboarded (pilot)</div>
+        <div class="traction-value">12,400</div>
+      </div>
+      <div class="traction-row">
+        <div class="traction-label">Schools in active pilot</div>
+        <div class="traction-value"><em>38</em></div>
+      </div>
+      <div class="traction-row">
+        <div class="traction-label">Avg. session completion</div>
+        <div class="traction-value">87%</div>
+      </div>
+      <div class="traction-row">
+        <div class="traction-label">Counsellor NPS</div>
+        <div class="traction-value"><em>+71</em></div>
+      </div>
+      <div class="traction-row">
+        <div class="traction-label">Countries piloting</div>
+        <div class="traction-value">3</div>
+      </div>
+      <div class="traction-row" style="border-bottom:none;">
+        <div class="traction-label">LOIs from district authorities</div>
+        <div class="traction-value">5</div>
+      </div>
+    </div>
+
+    <div class="chart-card reveal">
+      <div class="chart-title">Learners onboarded</div>
+      <div class="chart-sub">From <em>0 → 12,400</em> in 9 months.</div>
+      <div class="chart-svg-wrap">
+        <svg viewBox="0 0 400 220" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="areaGrad" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stop-color="#d97e2c" stop-opacity="0.45"/>
+              <stop offset="100%" stop-color="#d97e2c" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <g class="chart-grid">
+            <line x1="0" y1="40"  x2="400" y2="40"/>
+            <line x1="0" y1="90"  x2="400" y2="90"/>
+            <line x1="0" y1="140" x2="400" y2="140"/>
+            <line x1="0" y1="190" x2="400" y2="190"/>
+          </g>
+          <path class="chart-area" d="M0,200 L0,180 L50,178 L100,170 L150,150 L200,128 L250,100 L300,72 L350,42 L400,18 L400,200 Z"/>
+          <path class="chart-line" d="M0,180 L50,178 L100,170 L150,150 L200,128 L250,100 L300,72 L350,42 L400,18"/>
+          <circle class="chart-dot" cx="0"   cy="180" r="3.5"/>
+          <circle class="chart-dot" cx="100" cy="170" r="3.5"/>
+          <circle class="chart-dot" cx="200" cy="128" r="3.5"/>
+          <circle class="chart-dot" cx="300" cy="72"  r="3.5"/>
+          <circle class="chart-dot" cx="400" cy="18"  r="4"/>
+          <g class="chart-axis">
+            <text x="0"   y="215">Q1</text>
+            <text x="100" y="215">Q2</text>
+            <text x="200" y="215">Q3</text>
+            <text x="300" y="215">Q4</text>
+            <text x="380" y="215">Now</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== BUSINESS MODEL ========== -->
+<section id="model">
+  <div class="section-head reveal">
+    <div class="section-num">04 — Business model</div>
+    <h2 class="section-title">Free for learners. <em>Paid by the institutions</em> who need them.</h2>
+  </div>
+
+  <div class="model-grid">
+    <div class="model-card reveal">
+      <div class="glyph">
+        <svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h12"/></svg>
+      </div>
+      <h3>Schools &amp; districts</h3>
+      <div class="price">SaaS · per learner / yr</div>
+      <p>Counsellor dashboards, cohort analytics, and matric-readiness reports. Sold to private school groups and ministries of education.</p>
+    </div>
+    <div class="model-card reveal">
+      <div class="glyph">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      </div>
+      <h3>Universities &amp; funders</h3>
+      <div class="price">Placement &amp; CPA</div>
+      <p>Qualified, pre-screened applicants delivered to partner institutions and bursary funds — paid on enrolment and on placement.</p>
+    </div>
+    <div class="model-card reveal">
+      <div class="glyph">
+        <svg viewBox="0 0 24 24"><path d="M4 20V8l8-4 8 4v12M4 20h16M9 20v-6h6v6"/></svg>
+      </div>
+      <h3>Employers</h3>
+      <div class="price">Talent pipeline · subscription</div>
+      <p>Banks, telcos, and mining groups subscribe to match emerging talent into apprenticeships and graduate programmes — solving early-career hiring at the source.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TEAM ========== -->
+<section id="team" style="background: var(--ink-2); border-top: 1px solid var(--rule-light); border-bottom: 1px solid var(--rule-light);">
+  <div class="section-head reveal">
+    <div class="section-num">05 — The team</div>
+    <h2 class="section-title">Operators who have <em>shipped here before.</em></h2>
+  </div>
+
+  <div class="team-grid">
+
+    <div class="team-card reveal">
+      <div class="team-portrait">
+        <svg viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="p1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#d97e2c"/>
+              <stop offset="100%" stop-color="#1b252a"/>
+            </linearGradient>
+          </defs>
+          <rect width="200" height="250" fill="url(#p1)"/>
+          <circle cx="100" cy="100" r="38" fill="#0e1518" opacity="0.85"/>
+          <path d="M40 250 Q40 170, 100 170 Q160 170, 160 250 Z" fill="#0e1518" opacity="0.85"/>
+          <circle cx="100" cy="100" r="38" fill="none" stroke="#e9a23b" stroke-width="0.8" stroke-dasharray="3 3"/>
+          <text x="14" y="240" font-family="JetBrains Mono, monospace" font-size="8" fill="#f4ede1" opacity="0.7" letter-spacing="2">FOUNDER · CEO</text>
+        </svg>
+      </div>
+      <div class="team-role">Co-founder · CEO</div>
+      <h3 class="team-name">Irvine M.</h3>
+      <p class="team-bio">Tech GRC operator across SA financial services. 10+ years building compliance-grade platforms for regulated environments. Leads product, regulatory, and capital strategy.</p>
+    </div>
+
+    <div class="team-card reveal">
+      <div class="team-portrait">
+        <svg viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="p2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#889b7c"/>
+              <stop offset="100%" stop-color="#1b252a"/>
+            </linearGradient>
+          </defs>
+          <rect width="200" height="250" fill="url(#p2)"/>
+          <circle cx="100" cy="100" r="38" fill="#0e1518" opacity="0.85"/>
+          <path d="M40 250 Q40 170, 100 170 Q160 170, 160 250 Z" fill="#0e1518" opacity="0.85"/>
+          <circle cx="100" cy="100" r="38" fill="none" stroke="#e9a23b" stroke-width="0.8" stroke-dasharray="3 3"/>
+          <text x="14" y="240" font-family="JetBrains Mono, monospace" font-size="8" fill="#f4ede1" opacity="0.7" letter-spacing="2">CO-FOUNDER · CTO</text>
+        </svg>
+      </div>
+      <div class="team-role">Co-founder · CTO</div>
+      <h3 class="team-name">— TBA</h3>
+      <p class="team-bio">ML lead — formerly at a major African fintech. Owns the aptitude model, the pathway recommender, and the data infrastructure powering institutional dashboards.</p>
+    </div>
+
+    <div class="team-card reveal">
+      <div class="team-portrait">
+        <svg viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="p3" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#b3471f"/>
+              <stop offset="100%" stop-color="#1b252a"/>
+            </linearGradient>
+          </defs>
+          <rect width="200" height="250" fill="url(#p3)"/>
+          <circle cx="100" cy="100" r="38" fill="#0e1518" opacity="0.85"/>
+          <path d="M40 250 Q40 170, 100 170 Q160 170, 160 250 Z" fill="#0e1518" opacity="0.85"/>
+          <circle cx="100" cy="100" r="38" fill="none" stroke="#e9a23b" stroke-width="0.8" stroke-dasharray="3 3"/>
+          <text x="14" y="240" font-family="JetBrains Mono, monospace" font-size="8" fill="#f4ede1" opacity="0.7" letter-spacing="2">HEAD · DISTRIBUTION</text>
+        </svg>
+      </div>
+      <div class="team-role">Head of distribution</div>
+      <h3 class="team-name">— TBA</h3>
+      <p class="team-bio">Education-sector veteran. Owns the school, district, and employer pipeline across SA, Nigeria, and Kenya — and the path to public-sector adoption.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== THE ASK ========== -->
+<section id="ask" class="ask">
+  <div class="section-head reveal">
+    <div class="section-num">06 — The ask</div>
+    <h2 class="section-title">Raising <em>R 5M</em> seed.</h2>
+  </div>
+
+  <div class="ask-body reveal">
+    <div>
+      <h3 class="ask-headline">18 months to a continental footprint.</h3>
+      <p class="ask-text">Capital deploys against a defined operating plan: deepen the AI engine, scale the pilot from 38 to 400 schools across three markets, and convert four LOIs into paid public-sector contracts. We close at the end of Q3.</p>
+    </div>
+
+    <div class="ask-breakdown">
+      <div class="ask-row">
+        <div class="ask-pct">38%</div>
+        <div class="ask-cat">Engineering &amp; AI<small>Aptitude engine, recommender, infra</small></div>
+        <div class="ask-amt">R 1.90M</div>
+      </div>
+      <div class="ask-row">
+        <div class="ask-pct">28%</div>
+        <div class="ask-cat">Distribution &amp; partnerships<small>School, employer, government pipeline</small></div>
+        <div class="ask-amt">R 1.40M</div>
+      </div>
+      <div class="ask-row">
+        <div class="ask-pct">18%</div>
+        <div class="ask-cat">Geographic expansion<small>NG and KE market entry</small></div>
+        <div class="ask-amt">R 0.90M</div>
+      </div>
+      <div class="ask-row">
+        <div class="ask-pct">10%</div>
+        <div class="ask-cat">Compliance &amp; data governance<small>POPIA, child-data, AI risk framework</small></div>
+        <div class="ask-amt">R 0.50M</div>
+      </div>
+      <div class="ask-row">
+        <div class="ask-pct">6%</div>
+        <div class="ask-cat">Operations &amp; reserve<small>Working capital</small></div>
+        <div class="ask-amt">R 0.30M</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ask-cta reveal">
+    <a href="mailto:invest@myfuture.africa" class="btn-dark">
+      Request the data room
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+    </a>
+    <a href="#" class="btn-quiet">Download executive summary (PDF)</a>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="foot-brand">MyFuture<span style="color: var(--ochre);">.</span></div>
+      <p class="foot-tag">An AI-powered guidance platform for African learners — and the institutions investing in them.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Company</h4>
+      <a href="#problem">Problem</a>
+      <a href="#product">Product</a>
+      <a href="#team">Team</a>
+      <a href="#ask">Investors</a>
+    </div>
+    <div class="foot-col">
+      <h4>Reach us</h4>
+      <a href="mailto:invest@myfuture.africa">invest@myfuture.africa</a>
+      <a href="mailto:hello@myfuture.africa">hello@myfuture.africa</a>
+      <a href="#">LinkedIn</a>
+    </div>
+    <div class="foot-col">
+      <h4>Where</h4>
+      <a>Johannesburg, ZA</a>
+      <a>Lagos, NG</a>
+      <a>Nairobi, KE</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 MyFuture · All rights reserved</span>
+    <span>Crafted in Parkhurst</span>
+  </div>
+</footer>
+
+<script>
+  // Intersection-based reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
