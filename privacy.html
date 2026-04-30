@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Privacy Policy — MyFuture</title>
+<meta name="description" content="MyFuture's privacy policy. How we collect, use, and protect personal information — including the data of children and minors." />
+<meta name="robots" content="index, follow" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --ink: #0c1316;
+    --ink-2: #121b1f;
+    --paper: #f4ede1;
+    --bone: #d8cdb8;
+    --rule-light: rgba(244, 237, 225, 0.10);
+    --ochre: #d97e2c;
+    --amber: #e9a23b;
+    --rust: #b3471f;
+    --sage: #889b7c;
+
+    --display: 'Fraunces', 'Times New Roman', serif;
+    --body: 'Manrope', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--amber); text-decoration: underline; text-underline-offset: 3px; }
+  a:hover { color: var(--ochre); }
+
+  /* ===== HEADER ===== */
+  .top {
+    border-bottom: 1px solid var(--rule-light);
+    padding: 22px 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--ink-2);
+  }
+  .logo {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 500;
+    font-style: italic;
+    letter-spacing: -0.02em;
+    color: var(--paper);
+    text-decoration: none;
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+  }
+  .logo .dot { width: 8px; height: 8px; background: var(--ochre); border-radius: 50%; transform: translateY(-2px); }
+  .top a.back {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bone);
+    text-decoration: none;
+    opacity: 0.7;
+  }
+  .top a.back:hover { opacity: 1; color: var(--paper); }
+
+  /* ===== LAYOUT ===== */
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 36px 120px;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 60px;
+  }
+  @media (max-width: 900px) {
+    .wrap { grid-template-columns: 1fr; padding: 50px 22px 80px; gap: 40px; }
+    .toc { position: static !important; }
+  }
+
+  /* ===== TOC ===== */
+  .toc {
+    position: sticky;
+    top: 30px;
+    align-self: start;
+    font-size: 13px;
+  }
+  .toc-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--ochre);
+  }
+  .toc ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: toc;
+  }
+  .toc li { counter-increment: toc; margin-bottom: 10px; }
+  .toc a {
+    color: var(--bone);
+    text-decoration: none;
+    display: block;
+    padding-left: 22px;
+    position: relative;
+    line-height: 1.4;
+  }
+  .toc a::before {
+    content: counter(toc, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ochre);
+    opacity: 0.7;
+    letter-spacing: 0.05em;
+  }
+  .toc a:hover { color: var(--paper); }
+
+  /* ===== CONTENT ===== */
+  .doc-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    margin-bottom: 20px;
+  }
+  h1.doc-title {
+    font-family: var(--display);
+    font-size: clamp(40px, 6vw, 76px);
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+    margin: 0 0 24px;
+  }
+  h1.doc-title em { font-style: italic; color: var(--amber); font-weight: 300; }
+  .doc-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.7;
+    border-top: 1px solid var(--rule-light);
+    border-bottom: 1px solid var(--rule-light);
+    padding: 16px 0;
+    margin-bottom: 30px;
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+  .doc-meta span strong { color: var(--paper); font-weight: 600; display: block; margin-top: 2px; letter-spacing: 0.05em; }
+
+  /* ===== LEGAL REVIEW BANNER ===== */
+  .banner {
+    background: linear-gradient(135deg, rgba(179,71,31,0.18), rgba(217,126,44,0.06));
+    border: 1px solid rgba(179,71,31,0.4);
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin: 30px 0 50px;
+    position: relative;
+  }
+  .banner::before {
+    content: '⚠';
+    position: absolute;
+    top: 18px;
+    left: 22px;
+    color: var(--rust);
+    font-size: 18px;
+  }
+  .banner h4 {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin: 0 0 8px 30px;
+    font-weight: 600;
+  }
+  .banner p {
+    margin: 0 0 0 30px;
+    color: var(--paper);
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+
+  /* ===== INTRO ===== */
+  .intro {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(20px, 2.4vw, 26px);
+    line-height: 1.4;
+    color: var(--paper);
+    margin: 0 0 50px;
+    font-weight: 300;
+    letter-spacing: -0.012em;
+  }
+
+  /* ===== SECTIONS ===== */
+  section.clause {
+    padding: 30px 0;
+    border-top: 1px solid var(--rule-light);
+  }
+  section.clause:last-child { border-bottom: 1px solid var(--rule-light); }
+  .clause-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    margin-bottom: 10px;
+  }
+  h2.clause-title {
+    font-family: var(--display);
+    font-size: clamp(24px, 3.2vw, 34px);
+    line-height: 1.1;
+    letter-spacing: -0.018em;
+    font-weight: 500;
+    margin: 0 0 20px;
+  }
+  h3 {
+    font-family: var(--display);
+    font-size: 19px;
+    font-weight: 500;
+    margin: 28px 0 10px;
+    letter-spacing: -0.01em;
+  }
+  p { margin: 0 0 14px; color: var(--paper); }
+  ul, ol { padding-left: 22px; margin: 0 0 18px; }
+  ul li, ol li { margin-bottom: 8px; line-height: 1.6; }
+
+  /* Inline reviewer notes */
+  .note {
+    background: rgba(217,126,44,0.06);
+    border-left: 3px solid var(--ochre);
+    padding: 12px 16px;
+    margin: 14px 0 20px;
+    font-size: 13.5px;
+    color: var(--bone);
+    line-height: 1.55;
+    border-radius: 0 6px 6px 0;
+  }
+  .note::before {
+    content: '✎ Reviewer note · ';
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    font-weight: 600;
+  }
+
+  .placeholder {
+    background: rgba(217,126,44,0.12);
+    color: var(--amber);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  /* Definitions table */
+  table.defs {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 18px 0;
+  }
+  table.defs th, table.defs td {
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--rule-light);
+    font-size: 14px;
+    line-height: 1.55;
+    vertical-align: top;
+  }
+  table.defs th {
+    color: var(--ochre);
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+    width: 200px;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 30px 22px 50px;
+    border-top: 1px solid var(--rule-light);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.6;
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <a href="/" class="logo"><span class="dot"></span> MyFuture</a>
+  <a href="/" class="back">← Back to site</a>
+</header>
+
+<main class="wrap">
+
+  <!-- ===== TOC ===== -->
+  <aside class="toc">
+    <div class="toc-label">In this policy</div>
+    <ol>
+      <li><a href="#who">Who we are</a></li>
+      <li><a href="#scope">What this policy covers</a></li>
+      <li><a href="#definitions">Key definitions</a></li>
+      <li><a href="#what">Information we collect</a></li>
+      <li><a href="#how">How we use your information</a></li>
+      <li><a href="#legal">Lawful basis for processing</a></li>
+      <li><a href="#children">Children &amp; minors</a></li>
+      <li><a href="#sharing">Sharing &amp; third parties</a></li>
+      <li><a href="#cross-border">Cross-border transfers</a></li>
+      <li><a href="#retention">How long we keep data</a></li>
+      <li><a href="#security">Security measures</a></li>
+      <li><a href="#rights">Your rights</a></li>
+      <li><a href="#cookies">Cookies &amp; tracking</a></li>
+      <li><a href="#ai">Automated decisions &amp; AI</a></li>
+      <li><a href="#breach">Breach notification</a></li>
+      <li><a href="#changes">Changes to this policy</a></li>
+      <li><a href="#contact">Contact &amp; complaints</a></li>
+    </ol>
+  </aside>
+
+  <!-- ===== BODY ===== -->
+  <article>
+
+    <div class="doc-eyebrow">Legal</div>
+    <h1 class="doc-title">Privacy <em>policy.</em></h1>
+    <div class="doc-meta">
+      <span>Version<strong>0.1 — DRAFT</strong></span>
+      <span>Effective<strong><span class="placeholder">[date]</span></strong></span>
+      <span>Last updated<strong><span class="placeholder">[date]</span></strong></span>
+      <span>Jurisdiction<strong>South Africa (POPIA)</strong></span>
+    </div>
+
+    <!-- ============================================================
+         LEGAL REVIEW BANNER — REMOVE BEFORE PUBLISHING
+    ============================================================ -->
+    <div class="banner">
+      <h4>This is a draft — not legal advice</h4>
+      <p>This document is a structured starting point covering POPIA, NDPR (Nigeria), Kenya DPA, child-data, and AI-specific clauses. Every section needs review by a qualified privacy lawyer in each jurisdiction you operate in before publication. <strong>Remove this banner before going live.</strong></p>
+    </div>
+
+    <p class="intro">
+      MyFuture exists to help young people across Africa choose the path that fits who they actually are. To do that, we have to handle some of the most personal information a person has — their interests, their strengths, their dreams. We take that responsibility seriously, and this policy explains exactly how.
+    </p>
+
+    <!-- ===== 01 ===== -->
+    <section class="clause" id="who">
+      <div class="clause-num">01</div>
+      <h2 class="clause-title">Who we are</h2>
+      <p>MyFuture is operated by <span class="placeholder">[Legal entity name (Pty) Ltd]</span>, a company registered in South Africa under registration number <span class="placeholder">[reg no]</span>, with its registered address at <span class="placeholder">[registered address]</span> ("MyFuture", "we", "us", "our").</p>
+      <p>We are the <strong>responsible party</strong> (under POPIA) and the <strong>data controller</strong> (under GDPR-style frameworks) for the personal information described in this policy.</p>
+      <p>Our <strong>Information Officer</strong>, registered with the Information Regulator of South Africa, is <span class="placeholder">[name]</span>. They can be reached at <a href="mailto:privacy@myfuture.africa">privacy@myfuture.africa</a>.</p>
+      <div class="note">Confirm with your lawyer: registration number, exact legal entity name, registered address, and the named Information Officer (this individual must be registered with the Regulator before you collect any personal information).</div>
+    </section>
+
+    <!-- ===== 02 ===== -->
+    <section class="clause" id="scope">
+      <div class="clause-num">02</div>
+      <h2 class="clause-title">What this policy covers</h2>
+      <p>This policy applies to personal information we collect through:</p>
+      <ul>
+        <li>Our website at <strong>myfuture.africa</strong> and any subdomain</li>
+        <li>The MyFuture mobile and web applications</li>
+        <li>Our WhatsApp counsellor service</li>
+        <li>Forms, emails, and other communications you send to us</li>
+        <li>Information shared with us by partner schools, universities, and bursary funders, where you have consented to that sharing</li>
+      </ul>
+      <p>This policy does <strong>not</strong> apply to third-party websites or services we link to. Each of those operates under its own privacy policy.</p>
+    </section>
+
+    <!-- ===== 03 ===== -->
+    <section class="clause" id="definitions">
+      <div class="clause-num">03</div>
+      <h2 class="clause-title">Key definitions</h2>
+      <table class="defs">
+        <tr><th>Personal information</th><td>Any information that identifies you, or could reasonably be used to identify you, alone or in combination with other data.</td></tr>
+        <tr><th>Special personal information</th><td>Information about your race, religion, health, biometrics, or criminal behaviour. We collect minimal special personal information and only with explicit consent.</td></tr>
+        <tr><th>Child / minor</th><td>Any person under the age of 18 in South Africa, or as defined in the relevant local law.</td></tr>
+        <tr><th>Processing</th><td>Anything we do with your personal information — collecting, storing, using, sharing, or deleting it.</td></tr>
+        <tr><th>Operator</th><td>A third party that processes personal information on our behalf, under our instructions.</td></tr>
+      </table>
+    </section>
+
+    <!-- ===== 04 ===== -->
+    <section class="clause" id="what">
+      <div class="clause-num">04</div>
+      <h2 class="clause-title">Information we collect</h2>
+
+      <h3>Information you give us directly</h3>
+      <ul>
+        <li><strong>Identity &amp; contact information</strong> — name, age, gender (optional), email address, mobile number, country, region/province</li>
+        <li><strong>Educational information</strong> — current grade or level of education, school name, subjects, academic results (where you choose to share them)</li>
+        <li><strong>Assessment responses</strong> — your answers to our aptitude, interest, and constraint questionnaires</li>
+        <li><strong>Application information</strong> — for any university or bursary applications you submit through MyFuture</li>
+        <li><strong>Parent / guardian information</strong> — for users under 18, the contact details of a parent or guardian giving consent</li>
+        <li><strong>Communications</strong> — messages you send us via email, WhatsApp, or our in-app chat</li>
+      </ul>
+
+      <h3>Information we collect automatically</h3>
+      <ul>
+        <li><strong>Device information</strong> — IP address, browser type, operating system, device type</li>
+        <li><strong>Usage information</strong> — pages visited, features used, time spent, click patterns (only essential analytics — see <a href="#cookies">Cookies</a>)</li>
+        <li><strong>Location</strong> — approximate location derived from IP address only. We do not collect precise GPS location unless you explicitly enable it</li>
+      </ul>
+
+      <h3>Information we receive from third parties</h3>
+      <ul>
+        <li>From <strong>partner schools</strong>: bulk enrolment data with the school's authority and your consent</li>
+        <li>From <strong>partner universities</strong>: confirmation of your application or enrolment status</li>
+        <li>From <strong>bursary funders</strong>: status of any funding application you've made through MyFuture</li>
+      </ul>
+
+      <div class="note">If you plan to use any analytics, marketing pixels, or third-party SDKs, every one must be listed by name in this section before launch. Ask your lawyer to map each to a lawful basis and a retention period.</div>
+    </section>
+
+    <!-- ===== 05 ===== -->
+    <section class="clause" id="how">
+      <div class="clause-num">05</div>
+      <h2 class="clause-title">How we use your information</h2>
+      <p>We use your personal information to:</p>
+      <ul>
+        <li>Generate your aptitude assessment results and pathway recommendations</li>
+        <li>Surface bursaries, scholarships, and apprenticeships you may qualify for</li>
+        <li>Pre-fill applications you choose to submit through MyFuture</li>
+        <li>Connect you with a counsellor when you request one</li>
+        <li>Send you transactional notifications (e.g. application status updates)</li>
+        <li>Send you optional marketing communications, only if you have opted in separately</li>
+        <li>Improve our recommender models, using anonymised and aggregated data only</li>
+        <li>Detect fraud, abuse, and security incidents</li>
+        <li>Comply with our legal obligations</li>
+      </ul>
+      <p><strong>We do not sell your personal information. Ever.</strong> This is a hard line, not a marketing claim.</p>
+    </section>
+
+    <!-- ===== 06 ===== -->
+    <section class="clause" id="legal">
+      <div class="clause-num">06</div>
+      <h2 class="clause-title">Lawful basis for processing</h2>
+      <p>Under POPIA and equivalent regulations, we only process your personal information when we have a lawful basis to do so:</p>
+      <ul>
+        <li><strong>Consent</strong> — for assessments, marketing communications, and any sharing with third parties</li>
+        <li><strong>Performance of a contract</strong> — to deliver the service you have signed up for</li>
+        <li><strong>Legitimate interest</strong> — for fraud prevention, security, and product improvement (always balanced against your rights)</li>
+        <li><strong>Legal obligation</strong> — where the law requires us to retain or disclose information</li>
+        <li><strong>Vital interest</strong> — only in rare cases where someone's safety is at immediate risk</li>
+      </ul>
+      <p>You can withdraw your consent at any time by emailing <a href="mailto:privacy@myfuture.africa">privacy@myfuture.africa</a>. Withdrawal does not affect any processing we did before you withdrew.</p>
+    </section>
+
+    <!-- ===== 07 ===== -->
+    <section class="clause" id="children">
+      <div class="clause-num">07</div>
+      <h2 class="clause-title">Children &amp; minors</h2>
+      <p>Most of our users are under 18. We treat their information with extra care.</p>
+
+      <h3>Parental consent</h3>
+      <p>Anyone under 18 must have a parent or legal guardian provide verifiable consent before we process their personal information for anything beyond browsing the public website. We verify consent through one or more of:</p>
+      <ul>
+        <li>Email confirmation from the parent's email address, with a unique verification link</li>
+        <li>SMS or WhatsApp verification of the parent's mobile number</li>
+        <li>For school-deployed installations, the school confirming bulk parental consent under their existing learner consent framework</li>
+      </ul>
+
+      <h3>What we restrict for minors</h3>
+      <ul>
+        <li>No marketing communications, in any form, to anyone under 18</li>
+        <li>No profiling for advertising purposes</li>
+        <li>No sharing of any minor's identifiable information with universities or sponsors without explicit parental consent for that specific share</li>
+        <li>Stricter data minimisation — we collect only the fields strictly required to deliver the service</li>
+      </ul>
+
+      <h3>Special protections</h3>
+      <p>If you are a parent or guardian and you believe your child has provided personal information to us without your consent, please contact us at <a href="mailto:privacy@myfuture.africa">privacy@myfuture.africa</a>. We will delete the information promptly and take reasonable steps to ensure it is not retained.</p>
+
+      <div class="note">This is the most legally sensitive section. POPIA section 35 has specific rules on processing children's information; Nigeria's NDPR and Kenya's DPA each have their own. Confirm exact wording with a lawyer in each jurisdiction. Document your verifiable consent flow before going live.</div>
+    </section>
+
+    <!-- ===== 08 ===== -->
+    <section class="clause" id="sharing">
+      <div class="clause-num">08</div>
+      <h2 class="clause-title">Sharing &amp; third parties</h2>
+      <p>We share your personal information only as described below.</p>
+
+      <h3>With your consent</h3>
+      <p>When you choose to apply to a university, bursary, or apprenticeship through MyFuture, we share the relevant information with that institution. You see exactly what is being shared before you confirm.</p>
+
+      <h3>With our operators</h3>
+      <p>We use carefully selected third-party providers to operate the service. Each one is bound by a written processor agreement that requires them to protect your information and use it only for the purposes we instruct. Our key operators include:</p>
+      <ul>
+        <li><strong>Cloud hosting:</strong> <span class="placeholder">[provider, region]</span></li>
+        <li><strong>Email infrastructure:</strong> <span class="placeholder">[provider]</span></li>
+        <li><strong>Analytics (privacy-first):</strong> <span class="placeholder">[provider, e.g. Plausible]</span></li>
+        <li><strong>Payments (institutional partners only):</strong> <span class="placeholder">[provider]</span></li>
+        <li><strong>WhatsApp messaging:</strong> Meta Platforms (WhatsApp Business API)</li>
+      </ul>
+
+      <h3>Anonymised &amp; aggregated data</h3>
+      <p>We may share anonymised, aggregated cohort-level statistics with research partners, governments, and our investors. This data cannot be used to identify any individual.</p>
+
+      <h3>For legal reasons</h3>
+      <p>We may share information when required by law, by a valid court order, or to protect the safety of our users.</p>
+
+      <div class="note">Update the operator list with the actual vendors you select before launch. Ensure each one has a signed POPIA-compliant processor agreement on file.</div>
+    </section>
+
+    <!-- ===== 09 ===== -->
+    <section class="clause" id="cross-border">
+      <div class="clause-num">09</div>
+      <h2 class="clause-title">Cross-border transfers</h2>
+      <p>Your personal information may be processed in countries other than your home country, including <span class="placeholder">[list jurisdictions, e.g. South Africa, the European Union, the United States]</span>.</p>
+      <p>When we transfer personal information across borders, we do so only where:</p>
+      <ul>
+        <li>The receiving country has adequate data protection laws (in the assessment of the relevant regulator), or</li>
+        <li>We have put in place appropriate safeguards such as Standard Contractual Clauses or binding corporate rules, or</li>
+        <li>You have explicitly consented to the transfer after being informed of the risks</li>
+      </ul>
+      <div class="note">List actual data-processing locations and the safeguard mechanism used for each. POPIA section 72 governs this — your lawyer will need to confirm your specific transfer basis.</div>
+    </section>
+
+    <!-- ===== 10 ===== -->
+    <section class="clause" id="retention">
+      <div class="clause-num">10</div>
+      <h2 class="clause-title">How long we keep data</h2>
+      <p>We retain personal information only for as long as necessary for the purposes set out in this policy.</p>
+      <ul>
+        <li><strong>Active user account data:</strong> for as long as your account is active, plus <span class="placeholder">[X]</span> months after you delete it (to allow restoration in error cases)</li>
+        <li><strong>Assessment results:</strong> retained while you are an active user; deleted within 30 days of account closure</li>
+        <li><strong>Application records:</strong> retained for 7 years where required by educational record-keeping standards</li>
+        <li><strong>Communication logs:</strong> retained for 24 months for service-quality and dispute resolution</li>
+        <li><strong>Anonymised analytics:</strong> retained indefinitely (cannot be linked back to you)</li>
+        <li><strong>Marketing consents:</strong> retained until you withdraw consent</li>
+      </ul>
+      <p>You can ask us to delete your information sooner. See <a href="#rights">Your rights</a>.</p>
+    </section>
+
+    <!-- ===== 11 ===== -->
+    <section class="clause" id="security">
+      <div class="clause-num">11</div>
+      <h2 class="clause-title">Security measures</h2>
+      <p>We protect your personal information using:</p>
+      <ul>
+        <li><strong>Encryption in transit</strong> — all connections use TLS 1.2 or higher</li>
+        <li><strong>Encryption at rest</strong> — data is encrypted at rest using AES-256 or equivalent</li>
+        <li><strong>Access controls</strong> — staff only access personal information on a need-to-know basis, with audit logging</li>
+        <li><strong>Multi-factor authentication</strong> — required for all staff accounts and all sensitive systems</li>
+        <li><strong>Regular security review</strong> — including vulnerability scanning and periodic penetration testing</li>
+        <li><strong>Secure development practices</strong> — code review, dependency scanning, secret management</li>
+        <li><strong>Data minimisation</strong> — we collect the least data needed to deliver the service</li>
+      </ul>
+      <p>No system is perfectly secure. If you believe your account has been compromised, contact us immediately at <a href="mailto:security@myfuture.africa">security@myfuture.africa</a>.</p>
+    </section>
+
+    <!-- ===== 12 ===== -->
+    <section class="clause" id="rights">
+      <div class="clause-num">12</div>
+      <h2 class="clause-title">Your rights</h2>
+      <p>Under POPIA and equivalent laws you have the right to:</p>
+      <ul>
+        <li><strong>Access</strong> — request a copy of the personal information we hold about you</li>
+        <li><strong>Correction</strong> — ask us to correct inaccurate information</li>
+        <li><strong>Deletion</strong> — ask us to delete information we no longer need</li>
+        <li><strong>Restriction</strong> — ask us to limit how we use your information</li>
+        <li><strong>Object</strong> — object to processing based on legitimate interest</li>
+        <li><strong>Withdraw consent</strong> — at any time, for any consent-based processing</li>
+        <li><strong>Portability</strong> — receive your information in a machine-readable format</li>
+        <li><strong>Lodge a complaint</strong> — with the Information Regulator (see <a href="#contact">Contact</a>)</li>
+      </ul>
+      <p>To exercise any of these rights, email <a href="mailto:privacy@myfuture.africa">privacy@myfuture.africa</a>. We will respond within 30 days. We will verify your identity before acting on a request.</p>
+    </section>
+
+    <!-- ===== 13 ===== -->
+    <section class="clause" id="cookies">
+      <div class="clause-num">13</div>
+      <h2 class="clause-title">Cookies &amp; tracking</h2>
+      <p>We use a minimal, privacy-respecting set of cookies and similar technologies.</p>
+
+      <table class="defs">
+        <tr><th>Strictly necessary</th><td>Required for the site to function (session cookies, security tokens, language preference). Cannot be disabled.</td></tr>
+        <tr><th>Functional</th><td>Remember your preferences and settings. Set only with your consent.</td></tr>
+        <tr><th>Analytics</th><td>We use a privacy-first analytics service (<span class="placeholder">[name]</span>) that does not use cookies and does not track individuals across sites.</td></tr>
+        <tr><th>Advertising</th><td>We do not use advertising cookies. We do not run third-party ads on this site.</td></tr>
+      </table>
+
+      <p>Our cookie banner lets you accept or decline non-essential cookies. You can change your preferences any time via <span class="placeholder">[link to cookie settings]</span>.</p>
+    </section>
+
+    <!-- ===== 14 ===== -->
+    <section class="clause" id="ai">
+      <div class="clause-num">14</div>
+      <h2 class="clause-title">Automated decisions &amp; AI</h2>
+      <p>Our pathway recommender uses machine learning models to suggest study and career paths that may suit you. These suggestions are <strong>recommendations, not decisions</strong> — you are always in control of which path to pursue.</p>
+
+      <h3>How our AI works</h3>
+      <ul>
+        <li>The recommender uses your assessment responses, stated preferences, and the published requirements of partner institutions</li>
+        <li>It produces a fit score with an explicit confidence band — never a black-box answer</li>
+        <li>You can see, in plain language, why each path was recommended</li>
+        <li>You can adjust your inputs and re-run the recommendation any time</li>
+      </ul>
+
+      <h3>Your rights regarding AI</h3>
+      <ul>
+        <li><strong>Explanation</strong> — request a plain-language explanation of any specific recommendation</li>
+        <li><strong>Human review</strong> — speak to a human counsellor if you disagree with a recommendation</li>
+        <li><strong>Opt-out</strong> — choose not to receive automated recommendations and use the platform manually instead</li>
+      </ul>
+
+      <p>Our AI governance framework is aligned to the NIST AI Risk Management Framework, with additional child-safety controls. We document, test, and monitor every model that affects user-facing recommendations.</p>
+    </section>
+
+    <!-- ===== 15 ===== -->
+    <section class="clause" id="breach">
+      <div class="clause-num">15</div>
+      <h2 class="clause-title">Breach notification</h2>
+      <p>If we discover a breach of personal information that creates a real risk of harm to you, we will:</p>
+      <ul>
+        <li>Notify the Information Regulator without undue delay, and within the timeframes required by the relevant law</li>
+        <li>Notify affected users directly, in plain language, with practical steps you can take to protect yourself</li>
+        <li>Investigate the cause and put measures in place to prevent recurrence</li>
+      </ul>
+      <p>You can also report a suspected security incident to us at <a href="mailto:security@myfuture.africa">security@myfuture.africa</a>.</p>
+    </section>
+
+    <!-- ===== 16 ===== -->
+    <section class="clause" id="changes">
+      <div class="clause-num">16</div>
+      <h2 class="clause-title">Changes to this policy</h2>
+      <p>We may update this policy from time to time. When we make material changes, we will:</p>
+      <ul>
+        <li>Update the "Last updated" date at the top of this policy</li>
+        <li>Notify active users by email or in-app notification</li>
+        <li>For significant changes, ask you to confirm your continued consent</li>
+      </ul>
+      <p>Older versions of this policy are available on request from <a href="mailto:privacy@myfuture.africa">privacy@myfuture.africa</a>.</p>
+    </section>
+
+    <!-- ===== 17 ===== -->
+    <section class="clause" id="contact">
+      <div class="clause-num">17</div>
+      <h2 class="clause-title">Contact &amp; complaints</h2>
+
+      <h3>Contact us</h3>
+      <p>For privacy questions, requests, or complaints, contact our Information Officer:</p>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:privacy@myfuture.africa">privacy@myfuture.africa</a></li>
+        <li><strong>Postal address:</strong> <span class="placeholder">[full registered address]</span></li>
+      </ul>
+
+      <h3>Lodge a complaint</h3>
+      <p>If you are unhappy with how we have handled your personal information, you have the right to lodge a complaint with the relevant regulator:</p>
+      <ul>
+        <li><strong>South Africa</strong> — Information Regulator: <a href="https://inforegulator.org.za" target="_blank" rel="noopener noreferrer">inforegulator.org.za</a> · complaints.IR@inforegulator.org.za</li>
+        <li><strong>Nigeria</strong> — Nigeria Data Protection Commission: <a href="https://ndpc.gov.ng" target="_blank" rel="noopener noreferrer">ndpc.gov.ng</a></li>
+        <li><strong>Kenya</strong> — Office of the Data Protection Commissioner: <a href="https://www.odpc.go.ke" target="_blank" rel="noopener noreferrer">odpc.go.ke</a></li>
+      </ul>
+
+      <p style="margin-top: 30px; color: var(--bone); font-size: 14px;">We would much rather hear from you first, though. If anything in this policy is unclear or you feel we've fallen short, please get in touch — we'll do our best to put it right.</p>
+    </section>
+
+  </article>
+</main>
+
+<footer>
+  © 2026 MyFuture · POPIA-aligned · Crafted in Parkhurst
+</footer>
+
+</body>
+</html>

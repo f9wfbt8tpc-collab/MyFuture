@@ -1,0 +1,56 @@
+# =============================================================================
+# MyFuture — robots.txt
+# =============================================================================
+# Tells search engine crawlers which paths they may and may not index.
+# Place at the root: https://myfuture.africa/robots.txt
+# =============================================================================
+
+# ---- Default rule: allow all well-behaved crawlers ----
+User-agent: *
+Allow: /
+
+# Block paths that should never appear in search results.
+# These don't exist yet, but reserve them so they never accidentally leak.
+Disallow: /admin/
+Disallow: /api/
+Disallow: /internal/
+Disallow: /draft/
+Disallow: /preview/
+Disallow: /thank-you/
+Disallow: /assessment/result/
+Disallow: /partners/private/
+Disallow: /*.json$
+Disallow: /*?preview=*
+
+# ---- Block aggressive AI training scrapers ----
+# Add or remove as you see fit. Note these are honoured voluntarily.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+# ---- Block known bad actors ----
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+# ---- Sitemap ----
+Sitemap: https://myfuture.africa/sitemap.xml

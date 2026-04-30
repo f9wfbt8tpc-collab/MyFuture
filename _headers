@@ -1,0 +1,73 @@
+# =============================================================================
+# MyFuture — Security headers for Cloudflare Pages / Netlify
+# =============================================================================
+# Place this file at the ROOT of your repo (same folder as index.html).
+# Cloudflare Pages and Netlify both read it automatically — no config needed.
+#
+# Test your live site with: https://securityheaders.com/
+# Aim for an A or A+ grade.
+# =============================================================================
+
+/*
+  # ---- Transport security ----
+  # Force HTTPS for 1 year, including subdomains. Eligible for browser preload.
+  # Only enable `preload` once you're 100% sure every subdomain is HTTPS-only.
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+  # ---- Content Security Policy ----
+  # Restricts where the browser is allowed to load resources from.
+  # This policy matches the current MyFuture site (Google Fonts, inline styles
+  # for animations, inline scripts for the assessment widget).
+  #
+  # TIGHTEN LATER by:
+  #   1. Moving inline <style> and <script> into external files
+  #   2. Replacing 'unsafe-inline' with sha256-... hashes or nonces
+  #   3. Adding 'report-uri' or 'report-to' to log violations
+  Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; script-src 'self' 'unsafe-inline'; connect-src 'self' https://wa.me; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests
+
+  # ---- Clickjacking protection ----
+  # Belt-and-braces alongside frame-ancestors in the CSP above.
+  X-Frame-Options: DENY
+
+  # ---- MIME-type sniffing protection ----
+  X-Content-Type-Options: nosniff
+
+  # ---- Referrer leakage control ----
+  # Sends full referrer to same-origin, only the origin to cross-origin HTTPS,
+  # and nothing on HTTPS->HTTP downgrades. Good privacy default.
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # ---- Browser feature gating ----
+  # Explicitly DENY access to sensitive APIs the site does not use.
+  # Add features here only when you actually need them.
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()
+
+  # ---- Cross-origin isolation ----
+  # Reduces the blast radius of any future XSS or third-party compromise.
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+
+  # ---- Legacy XSS filter (still respected by some browsers) ----
+  X-XSS-Protection: 1; mode=block
+
+# =============================================================================
+# Cache rules — long cache for static assets, short for HTML
+# =============================================================================
+
+/*.html
+  Cache-Control: public, max-age=300, must-revalidate
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
