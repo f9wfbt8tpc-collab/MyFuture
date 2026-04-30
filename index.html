@@ -1,10 +1,2568 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>MyFuture</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MyFuture — The path that fits who you actually are.</title>
+<meta name="description" content="MyFuture is an AI-powered guidance platform that helps African learners discover the academic and career paths that fit them — and the funding to make them possible." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --ink: #0c1316;
+    --ink-2: #121b1f;
+    --ink-3: #1a242a;
+    --ink-4: #232f36;
+    --paper: #f4ede1;
+    --paper-soft: #ebe2d2;
+    --bone: #d8cdb8;
+    --rule: #2a363c;
+    --rule-light: rgba(244, 237, 225, 0.10);
+    --rule-mid: rgba(244, 237, 225, 0.18);
+
+    --ochre: #d97e2c;
+    --amber: #e9a23b;
+    --rust: #b3471f;
+    --sage: #889b7c;
+    --sky: #6c92a8;
+    --wine: #7a3340;
+
+    --display: 'Fraunces', 'Times New Roman', serif;
+    --body: 'Manrope', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--ochre); color: var(--ink); }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 100;
+    opacity: 0.05; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  /* ============== NAV ============== */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    padding: 18px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(12,19,22,0.94), rgba(12,19,22,0.4) 80%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .logo {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    font-style: italic;
+    display: flex; align-items: baseline; gap: 7px;
+  }
+  .logo .dot {
+    width: 8px; height: 8px;
+    background: var(--ochre);
+    border-radius: 50%;
+    transform: translateY(-2px);
+    animation: glow 2.5s ease-in-out infinite;
+  }
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(217,126,44,0.5); }
+    50% { box-shadow: 0 0 0 6px rgba(217,126,44,0); }
+  }
+  .nav-links { display: flex; gap: 28px; font-size: 13px; letter-spacing: 0.02em; font-weight: 500; }
+  .nav-links a { opacity: 0.65; transition: opacity 0.2s; }
+  .nav-links a:hover { opacity: 1; }
+  .nav-cta {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 10px 16px;
+    background: var(--ochre);
+    color: var(--ink);
+    border-radius: 999px;
+    transition: all 0.25s;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .nav-cta:hover { background: var(--amber); }
+  @media (max-width: 900px) {
+    .nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+  }
+
+  /* ============== HERO — INTERACTIVE ASSESSMENT ============== */
+  .hero {
+    min-height: 100vh;
+    padding: 120px 36px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 70px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 20%; right: -10%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(217,126,44,0.12) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -20%; left: -10%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(122,51,64,0.08) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-meta {
+    position: absolute;
+    top: 96px;
+    left: 36px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.55;
+    display: flex;
+    gap: 22px;
+    z-index: 2;
+  }
+  .hero-meta span:not(:last-child)::after {
+    content: ''; display: inline-block;
+    width: 16px; height: 1px;
+    background: var(--bone); margin-left: 22px;
+    transform: translateY(-3px);
+  }
+
+  .hero-left { position: relative; z-index: 2; }
+
+  .live-pip {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 6px 12px;
+    border: 1px solid var(--rule-light);
+    border-radius: 999px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bone);
+    background: rgba(136,155,124,0.06);
+    margin-bottom: 28px;
+  }
+  .live-pip .pulse {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--sage);
+    box-shadow: 0 0 0 0 rgba(136, 155, 124, 0.7);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(136,155,124,0.7); }
+    70% { box-shadow: 0 0 0 8px rgba(136,155,124,0); }
+    100% { box-shadow: 0 0 0 0 rgba(136,155,124,0); }
+  }
+
+  h1.hero-title {
+    font-family: var(--display);
+    font-size: clamp(46px, 7.2vw, 104px);
+    line-height: 0.94;
+    letter-spacing: -0.035em;
+    font-weight: 400;
+    margin: 0 0 30px;
+  }
+  h1.hero-title em { font-style: italic; color: var(--amber); font-weight: 300; }
+  h1.hero-title .stroke { -webkit-text-stroke: 1px var(--paper); color: transparent; }
+
+  .hero-sub {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--bone);
+    max-width: 480px;
+    margin-bottom: 36px;
+  }
+
+  .hero-foot {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 30px;
+    border-top: 1px solid var(--rule-light);
+  }
+  .hero-foot-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .hero-foot-num {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 28px;
+    color: var(--paper);
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+  .hero-foot-num em { color: var(--amber); }
+  .hero-foot-label {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.6;
+  }
+
+  /* === INTERACTIVE ASSESSMENT WIDGET === */
+  .assessment {
+    background: linear-gradient(150deg, var(--ink-2) 0%, var(--ink-3) 100%);
+    border: 1px solid var(--rule-light);
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 50px 120px -50px rgba(0,0,0,0.7), 0 0 60px -20px rgba(217,126,44,0.1);
+  }
+  .assessment::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent 0%, var(--ochre) 50%, transparent 100%);
+  }
+
+  .assessment-head {
+    padding: 22px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--rule-light);
+  }
+  .assessment-tag {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .assessment-tag::before {
+    content: '◆';
+    font-size: 9px;
+  }
+  .assessment-progress {
+    display: flex;
+    gap: 5px;
+  }
+  .progress-pip {
+    width: 22px; height: 3px;
+    background: var(--rule);
+    border-radius: 2px;
+    transition: background 0.3s;
+  }
+  .progress-pip.done { background: var(--ochre); }
+  .progress-pip.active { background: var(--amber); }
+
+  .assessment-body {
+    padding: 36px 32px 32px;
+    min-height: 380px;
+    position: relative;
+  }
+  .step-screen {
+    display: none;
+    animation: fadeUp 0.6s cubic-bezier(0.65,0,0.35,1) forwards;
+  }
+  .step-screen.active { display: block; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .q-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.55;
+    margin-bottom: 14px;
+  }
+  .q-text {
+    font-family: var(--display);
+    font-size: clamp(22px, 2.2vw, 28px);
+    line-height: 1.2;
+    letter-spacing: -0.018em;
+    font-weight: 400;
+    margin: 0 0 28px;
+  }
+  .q-text em { font-style: italic; color: var(--amber); }
+
+  .q-options { display: flex; flex-direction: column; gap: 10px; }
+  .q-option {
+    text-align: left;
+    width: 100%;
+    background: rgba(244,237,225,0.025);
+    border: 1px solid var(--rule-light);
+    border-radius: 12px;
+    padding: 16px 18px;
+    color: var(--paper);
+    font-size: 14.5px;
+    line-height: 1.4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+    transition: all 0.2s;
+    font-weight: 400;
+  }
+  .q-option:hover {
+    background: rgba(244,237,225,0.05);
+    border-color: var(--bone);
+    transform: translateX(2px);
+  }
+  .q-option.selected {
+    background: rgba(217,126,44,0.12);
+    border-color: var(--ochre);
+  }
+  .q-option .glyph {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ochre);
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+  .q-option.selected .glyph { opacity: 1; }
+
+  /* Result screen */
+  .result-screen { text-align: left; }
+  .result-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 20px;
+    gap: 20px;
+  }
+  .result-spinner {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--rule);
+    border-top-color: var(--ochre);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .result-loading-text {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.7;
+  }
+
+  .result-eyebrow {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .result-eyebrow::before {
+    content: '◆';
+    color: var(--ochre);
+    font-size: 9px;
+  }
+  .result-headline {
+    font-family: var(--display);
+    font-size: 26px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 6px;
+    font-weight: 500;
+  }
+  .result-headline em { font-style: italic; color: var(--amber); font-weight: 400; }
+  .result-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--bone);
+    opacity: 0.7;
+    margin-bottom: 24px;
+  }
+
+  .match-bar-wrap { margin-bottom: 22px; }
+  .match-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bone);
+    margin-bottom: 8px;
+  }
+  .match-bar-label .pct {
+    color: var(--amber);
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 18px;
+    text-transform: none;
+    letter-spacing: -0.01em;
+  }
+  .match-bar {
+    height: 6px;
+    background: var(--rule);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .match-bar div {
+    height: 100%;
+    background: linear-gradient(to right, var(--ochre), var(--amber));
+    width: 0;
+    border-radius: 3px;
+    transition: width 1.4s cubic-bezier(0.65,0,0.35,1);
+  }
+
+  .alt-matches {
+    border-top: 1px solid var(--rule-light);
+    padding-top: 18px;
+    margin-bottom: 24px;
+  }
+  .alt-match {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule-light);
+    font-size: 13.5px;
+  }
+  .alt-match:last-child { border-bottom: none; }
+  .alt-match-name { color: var(--paper); }
+  .alt-match-name small { color: var(--bone); opacity: 0.7; display: block; font-size: 11px; margin-top: 2px; }
+  .alt-match-fit {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--bone);
+  }
+
+  .result-cta-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--ochre);
+    color: var(--ink);
+    padding: 14px 22px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 13.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.25s;
+  }
+  .btn-primary:hover { background: var(--amber); transform: translateY(-1px); }
+  .btn-primary svg { transition: transform 0.25s; }
+  .btn-primary:hover svg { transform: translateX(3px); }
+
+  .btn-link {
+    color: var(--bone);
+    padding: 14px 6px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: color 0.2s;
+    border-bottom: 1px solid transparent;
+  }
+  .btn-link:hover { color: var(--paper); border-bottom-color: var(--paper); }
+
+  .assessment-foot {
+    border-top: 1px solid var(--rule-light);
+    padding: 16px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.6;
+  }
+  .assessment-foot .lang {
+    display: flex; gap: 12px;
+  }
+  .assessment-foot .lang span {
+    cursor: default;
+    transition: opacity 0.2s;
+  }
+  .assessment-foot .lang span.active { color: var(--ochre); opacity: 1; }
+  .assessment-foot .lang span:not(.active) { opacity: 0.5; }
+
+  @media (max-width: 1000px) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 110px 22px 50px;
+      gap: 40px;
+    }
+    .hero-meta { left: 22px; font-size: 9.5px; gap: 14px; }
+    .hero-meta span:not(:last-child)::after { width: 10px; margin-left: 14px; }
+  }
+  @media (max-width: 600px) {
+    .assessment-body { padding: 28px 22px 24px; }
+    .assessment-head, .assessment-foot { padding-left: 22px; padding-right: 22px; }
+  }
+
+  /* ============== TICKER ============== */
+  .ticker {
+    border-top: 1px solid var(--rule-light);
+    border-bottom: 1px solid var(--rule-light);
+    padding: 20px 0;
+    overflow: hidden;
+    background: var(--ink-2);
+  }
+  .ticker-track {
+    display: flex; gap: 70px;
+    white-space: nowrap;
+    animation: ticker 50s linear infinite;
+    width: max-content;
+  }
+  .ticker-item {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 22px;
+    color: var(--paper-soft);
+    display: flex;
+    align-items: center;
+    gap: 70px;
+  }
+  .ticker-item::after {
+    content: '✦';
+    color: var(--ochre);
+    font-style: normal;
+    font-size: 12px;
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ============== SECTION SHELL ============== */
+  section { padding: 120px 36px; position: relative; }
+  @media (max-width: 800px) { section { padding: 80px 22px; } }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 60px;
+    align-items: start;
+    margin-bottom: 70px;
+  }
+  .section-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    padding-top: 14px;
+    border-top: 1px solid var(--ochre);
+  }
+  .section-num.sage { color: var(--sage); border-color: var(--sage); }
+  .section-num.sky  { color: var(--sky); border-color: var(--sky); }
+  .section-num.rust { color: var(--rust); border-color: var(--rust); }
+
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(36px, 5.2vw, 68px);
+    line-height: 1.0;
+    letter-spacing: -0.025em;
+    font-weight: 400;
+    margin: 0;
+  }
+  .section-title em { font-style: italic; color: var(--amber); font-weight: 300; }
+  .section-title em.sage { color: var(--sage); }
+  .section-title em.sky  { color: var(--sky); }
+  .section-title em.rust { color: var(--rust); }
+
+  @media (max-width: 800px) {
+    .section-head { grid-template-columns: 1fr; gap: 18px; margin-bottom: 50px; }
+  }
+
+  /* ============== HOW IT WORKS — animated ============== */
+  #how { background: var(--ink); position: relative; }
+
+  .how-rail {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+  .how-rail::before {
+    content: '';
+    position: absolute;
+    top: 24px;
+    left: 6%;
+    right: 6%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--rule-mid), transparent);
+  }
+  .how-step {
+    position: relative;
+    padding-top: 60px;
+  }
+  .how-step::before {
+    content: '';
+    position: absolute;
+    top: 17px; left: 0;
+    width: 14px; height: 14px;
+    background: var(--ink);
+    border: 1.5px solid var(--ochre);
+    border-radius: 50%;
+  }
+  .how-step::after {
+    content: '';
+    position: absolute;
+    top: 21px; left: 4px;
+    width: 6px; height: 6px;
+    background: var(--ochre);
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.4s cubic-bezier(0.65,0,0.35,1);
+  }
+  .how-step.in::after { opacity: 1; transform: scale(1); }
+
+  .how-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--bone);
+    opacity: 0.5;
+    margin-bottom: 10px;
+  }
+  .how-step h3 {
+    font-family: var(--display);
+    font-size: 22px;
+    line-height: 1.2;
+    margin: 0 0 12px;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+  .how-step p {
+    color: var(--bone);
+    font-size: 14px;
+    line-height: 1.55;
+    margin: 0;
+  }
+  .how-step .timing {
+    margin-top: 16px;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.15em;
+    color: var(--sage);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 900px) {
+    .how-rail { grid-template-columns: 1fr 1fr; gap: 30px 24px; }
+    .how-rail::before { display: none; }
+  }
+  @media (max-width: 500px) {
+    .how-rail { grid-template-columns: 1fr; }
+  }
+
+  /* ============== STORIES — editorial card layout ============== */
+  #stories {
+    background: var(--ink-2);
+    border-top: 1px solid var(--rule-light);
+    border-bottom: 1px solid var(--rule-light);
+  }
+
+  .stories-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    gap: 26px;
+  }
+
+  .story {
+    background: var(--ink-3);
+    border: 1px solid var(--rule-light);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.65,0,0.35,1);
+  }
+  .story:hover {
+    transform: translateY(-4px);
+    border-color: var(--bone);
+  }
+  .story-img {
+    aspect-ratio: 4/3;
+    position: relative;
+    overflow: hidden;
+  }
+  .story-img svg { width: 100%; height: 100%; display: block; }
+  .story-img .badge {
+    position: absolute;
+    top: 16px; left: 16px;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    background: var(--ink);
+    color: var(--paper);
+    border: 1px solid var(--rule-mid);
+    border-radius: 999px;
+  }
+  .story-body { padding: 26px 26px 28px; flex: 1; display: flex; flex-direction: column; }
+  .story-pull {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(20px, 2vw, 24px);
+    line-height: 1.3;
+    letter-spacing: -0.012em;
+    color: var(--paper);
+    margin: 0 0 18px;
+  }
+  .story-pull::before { content: '“'; color: var(--amber); }
+  .story-pull::after { content: '”'; color: var(--amber); }
+
+  .story-attr {
+    margin-top: auto;
+    padding-top: 18px;
+    border-top: 1px solid var(--rule-light);
+  }
+  .story-name {
+    font-family: var(--display);
+    font-size: 15px;
+    color: var(--paper);
+    margin: 0;
+    letter-spacing: -0.01em;
+    font-weight: 500;
+  }
+  .story-meta {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.65;
+    margin-top: 4px;
+  }
+
+  /* Featured story spans wider */
+  .story.featured {
+    grid-row: span 2;
+  }
+  .story.featured .story-img { aspect-ratio: 4/5; }
+  .story.featured .story-pull {
+    font-size: clamp(22px, 2.4vw, 30px);
+  }
+
+  @media (max-width: 1000px) {
+    .stories-grid { grid-template-columns: 1fr 1fr; }
+    .story.featured { grid-row: span 1; }
+    .story.featured .story-img { aspect-ratio: 4/3; }
+  }
+  @media (max-width: 600px) {
+    .stories-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ============== AUDIENCES — tab interface ============== */
+  #audiences { background: var(--ink); }
+
+  .aud-tabs {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    padding: 6px;
+    background: var(--ink-2);
+    border: 1px solid var(--rule-light);
+    border-radius: 999px;
+    margin-bottom: 50px;
+    width: fit-content;
+  }
+  .aud-tab {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--bone);
+    padding: 10px 22px;
+    border-radius: 999px;
+    transition: all 0.25s;
+    font-weight: 400;
+  }
+  .aud-tab:hover { color: var(--paper); }
+  .aud-tab.active {
+    background: var(--paper);
+    color: var(--ink);
+  }
+  @media (max-width: 700px) {
+    .aud-tabs { width: 100%; overflow-x: auto; }
+    .aud-tab { font-size: 14px; padding: 8px 16px; flex-shrink: 0; }
+  }
+
+  .aud-panel {
+    display: none;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 60px;
+    align-items: stretch;
+    animation: fadeUp 0.5s cubic-bezier(0.65,0,0.35,1) forwards;
+  }
+  .aud-panel.active { display: grid; }
+
+  @media (max-width: 900px) {
+    .aud-panel.active { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  .aud-content h3 {
+    font-family: var(--display);
+    font-size: clamp(28px, 3.6vw, 42px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    margin: 0 0 22px;
+  }
+  .aud-content h3 em { font-style: italic; font-weight: 300; }
+  .aud-content > p {
+    color: var(--bone);
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 0 30px;
+    max-width: 500px;
+  }
+
+  .aud-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .aud-bullets li {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 16px;
+    padding: 18px 0;
+    border-top: 1px solid var(--rule-light);
+    align-items: start;
+  }
+  .aud-bullets li:last-child { border-bottom: 1px solid var(--rule-light); }
+  .aud-bullets .marker {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 1px solid var(--rule-mid);
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 11px;
+    color: var(--bone);
+  }
+  .aud-bullets strong { color: var(--paper); font-weight: 600; display: block; margin-bottom: 4px; font-size: 15px; }
+  .aud-bullets span { color: var(--bone); font-size: 14px; line-height: 1.55; }
+
+  .aud-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+
+  .btn-secondary {
+    color: var(--paper);
+    padding: 14px 22px;
+    font-weight: 500;
+    font-size: 13.5px;
+    border: 1px solid var(--rule-mid);
+    border-radius: 999px;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-secondary:hover { border-color: var(--paper); }
+
+  /* Side visual panel */
+  .aud-visual {
+    background: linear-gradient(160deg, var(--ink-2), var(--ink-3));
+    border: 1px solid var(--rule-light);
+    border-radius: 22px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 480px;
+  }
+  .aud-visual::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px; right: -1px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--ochre), transparent);
+  }
+
+  /* === STUDENT visual: phone mockup === */
+  .phone-stack {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .phone {
+    width: 220px;
+    aspect-ratio: 9/19;
+    background: var(--ink);
+    border: 1px solid var(--rule);
+    border-radius: 28px;
+    padding: 10px;
+    box-shadow: 0 30px 80px -30px rgba(0,0,0,0.7);
+    position: relative;
+    z-index: 2;
+  }
+  .phone-screen {
+    background: linear-gradient(180deg, var(--ink-3), var(--ink));
+    border-radius: 20px;
+    height: 100%;
+    padding: 18px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+  }
+  .phone-status {
+    display: flex; justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 8.5px;
+    color: var(--bone);
+    opacity: 0.55;
+    letter-spacing: 0.08em;
+  }
+  .phone-greet {
+    font-family: var(--display);
+    font-size: 16px;
+    line-height: 1.2;
+    color: var(--paper);
+  }
+  .phone-greet em { font-style: italic; color: var(--amber); }
+  .phone-card {
+    background: rgba(217,126,44,0.1);
+    border: 1px solid rgba(217,126,44,0.3);
+    border-radius: 10px;
+    padding: 10px;
+  }
+  .phone-card-eyebrow {
+    font-family: var(--mono);
+    font-size: 7.5px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    margin-bottom: 4px;
+  }
+  .phone-card-text {
+    font-family: var(--display);
+    font-size: 12px;
+    line-height: 1.2;
+    color: var(--paper);
+  }
+  .phone-bars { display: flex; gap: 3px; align-items: end; height: 24px; margin-top: 6px; }
+  .phone-bars div {
+    flex: 1;
+    background: var(--amber);
+    border-radius: 1px;
+    opacity: 0.4;
+  }
+
+  .phone-floats {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .float-pill {
+    position: absolute;
+    background: var(--ink-2);
+    border: 1px solid var(--rule-mid);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bone);
+    box-shadow: 0 14px 40px -14px rgba(0,0,0,0.5);
+    animation: floatY 4s ease-in-out infinite;
+  }
+  .float-pill.f1 { top: 8%; left: 0%; animation-delay: 0s; color: var(--amber); border-color: rgba(233,162,59,0.4); }
+  .float-pill.f2 { top: 30%; right: -2%; animation-delay: 1.2s; color: var(--sage); border-color: rgba(136,155,124,0.4); }
+  .float-pill.f3 { bottom: 18%; left: -2%; animation-delay: 2.4s; color: var(--sky); border-color: rgba(108,146,168,0.4); }
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  /* === PARENT visual: testimonial card === */
+  .parent-frame {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 22px;
+  }
+  .parent-quote {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(20px, 2.2vw, 26px);
+    line-height: 1.35;
+    color: var(--paper);
+    position: relative;
+    padding-left: 30px;
+  }
+  .parent-quote::before {
+    content: '“';
+    position: absolute;
+    left: -8px;
+    top: -10px;
+    color: var(--sage);
+    font-size: 80px;
+    line-height: 1;
+    opacity: 0.4;
+  }
+  .parent-attr {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    border-top: 1px solid var(--rule-light);
+    padding-top: 20px;
+  }
+  .parent-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .parent-attr-name {
+    font-family: var(--display);
+    font-size: 16px;
+    margin: 0;
+    letter-spacing: -0.01em;
+    font-weight: 500;
+  }
+  .parent-attr-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.65;
+    margin-top: 3px;
+  }
+  .parent-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 12px;
+  }
+  .parent-stat {
+    background: rgba(136,155,124,0.06);
+    border: 1px solid rgba(136,155,124,0.18);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .parent-stat-num {
+    font-family: var(--display);
+    font-size: 30px;
+    color: var(--sage);
+    font-style: italic;
+    line-height: 1;
+    font-weight: 300;
+  }
+  .parent-stat-label {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.7;
+    margin-top: 6px;
+  }
+
+  /* === UNIVERSITY visual: dashboard === */
+  .dash {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .dash-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--rule-light);
+  }
+  .dash-bar-title {
+    font-family: var(--display);
+    font-size: 15px;
+    letter-spacing: -0.01em;
+  }
+  .dash-pill {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(136,155,124,0.15);
+    color: var(--sage);
+    border: 1px solid rgba(136,155,124,0.3);
+  }
+  .dash-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .dash-kpi {
+    background: rgba(244,237,225,0.025);
+    border: 1px solid var(--rule-light);
+    border-radius: 10px;
+    padding: 12px;
+  }
+  .dash-kpi-label {
+    font-family: var(--mono);
+    font-size: 8.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.7;
+    margin-bottom: 6px;
+  }
+  .dash-kpi-val {
+    font-family: var(--display);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+  .dash-kpi-val em { font-style: italic; color: var(--sky); font-weight: 300; }
+  .dash-chart svg { width: 100%; height: auto; display: block; }
+  .dash-chart-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.7;
+    margin-bottom: 10px;
+  }
+
+  /* === SPONSOR visual: impact === */
+  .sponsor-frame {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .impact-big {
+    font-family: var(--display);
+    font-size: clamp(60px, 8vw, 90px);
+    line-height: 0.95;
+    font-weight: 300;
+    color: var(--rust);
+    margin: 0;
+    letter-spacing: -0.04em;
+  }
+  .impact-big sup { font-size: 0.4em; color: var(--paper); margin-left: 6px; vertical-align: super; }
+  .impact-cap {
+    color: var(--bone);
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 280px;
+    margin: 0 0 24px;
+  }
+  .impact-rows { display: flex; flex-direction: column; }
+  .impact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 12px 0;
+    border-top: 1px solid var(--rule-light);
+    font-size: 13px;
+  }
+  .impact-row:last-child { border-bottom: 1px solid var(--rule-light); }
+  .impact-row .l { color: var(--bone); }
+  .impact-row .v {
+    font-family: var(--display);
+    font-style: italic;
+    color: var(--paper);
+    font-size: 16px;
+    letter-spacing: -0.01em;
+  }
+  .impact-row .v em { color: var(--rust); }
+
+  /* ============== MARQUEE OF PARTNERS ============== */
+  .partner-strip {
+    padding: 50px 36px;
+    background: var(--ink);
+    border-top: 1px solid var(--rule-light);
+    border-bottom: 1px solid var(--rule-light);
+  }
+  .partner-strip-label {
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.55;
+    margin-bottom: 28px;
+  }
+  .partner-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px 60px;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .partner {
+    font-family: var(--display);
+    font-size: 22px;
+    color: var(--bone);
+    opacity: 0.65;
+    transition: opacity 0.2s;
+    letter-spacing: -0.01em;
+    font-weight: 500;
+  }
+  .partner em { font-style: italic; font-weight: 400; }
+  .partner:hover { opacity: 1; color: var(--paper); }
+  .partner small {
+    display: block;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 3px;
+    opacity: 0.55;
+    font-weight: 400;
+  }
+
+  /* ============== TRUST / DATA ============== */
+  #trust { background: var(--ink-2); border-top: 1px solid var(--rule-light); border-bottom: 1px solid var(--rule-light); }
+  .trust-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 70px;
+    align-items: start;
+  }
+  .trust-pillars {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 26px;
+  }
+  .trust-pillar {
+    border: 1px solid var(--rule-light);
+    border-radius: 16px;
+    padding: 24px;
+    background: var(--ink-3);
+  }
+  .trust-pillar .glyph {
+    width: 36px; height: 36px;
+    border-radius: 9px;
+    background: rgba(217,126,44,0.12);
+    border: 1px solid rgba(217,126,44,0.3);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+  }
+  .trust-pillar svg { width: 18px; height: 18px; stroke: var(--amber); fill: none; stroke-width: 1.6; }
+  .trust-pillar h4 {
+    font-family: var(--display);
+    font-size: 18px;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+    font-weight: 500;
+  }
+  .trust-pillar p {
+    color: var(--bone);
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin: 0;
+  }
+  .trust-side h3 {
+    font-family: var(--display);
+    font-size: clamp(28px, 3.4vw, 38px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    margin: 0 0 22px;
+  }
+  .trust-side h3 em { font-style: italic; color: var(--amber); font-weight: 300; }
+  .trust-side p {
+    color: var(--bone);
+    font-size: 15.5px;
+    line-height: 1.6;
+    margin: 0 0 20px;
+  }
+  .trust-marks {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  .trust-mark {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border: 1px solid var(--rule-mid);
+    border-radius: 999px;
+    color: var(--bone);
+  }
+  @media (max-width: 900px) {
+    .trust-grid { grid-template-columns: 1fr; gap: 40px; }
+    .trust-pillars { grid-template-columns: 1fr; }
+  }
+
+  /* ============== FAQ ============== */
+  #faq { background: var(--ink); }
+  .faq-grid { max-width: 920px; }
+  details {
+    border-top: 1px solid var(--rule-light);
+    padding: 24px 0;
+  }
+  details:last-of-type { border-bottom: 1px solid var(--rule-light); }
+  details[open] { padding-bottom: 30px; }
+  summary {
+    font-family: var(--display);
+    font-size: clamp(20px, 2.3vw, 26px);
+    letter-spacing: -0.015em;
+    font-weight: 500;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 20px;
+    color: var(--paper);
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: '+';
+    font-family: var(--display);
+    font-size: 30px;
+    font-weight: 300;
+    color: var(--ochre);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  details[open] summary::after { content: '−'; }
+  details p {
+    color: var(--bone);
+    font-size: 15px;
+    line-height: 1.65;
+    margin: 16px 0 0;
+    max-width: 720px;
+  }
+
+  /* ============== FINAL CTA ============== */
+  .final {
+    background: var(--paper);
+    color: var(--ink);
+    padding: 130px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .final::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(217,126,44,0.13) 0%, transparent 55%),
+      radial-gradient(circle at 80% 70%, rgba(179,71,31,0.08) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .final-inner { position: relative; max-width: 1100px; margin: 0 auto; }
+  .final-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .final-eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--rust); }
+  .final h2 {
+    font-family: var(--display);
+    font-size: clamp(40px, 6.8vw, 92px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    font-weight: 400;
+    margin: 0 0 30px;
+    max-width: 900px;
+  }
+  .final h2 em { font-style: italic; color: var(--rust); font-weight: 300; }
+  .final p {
+    font-size: 17px;
+    line-height: 1.6;
+    color: #4a4138;
+    max-width: 580px;
+    margin: 0 0 50px;
+  }
+  .final-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-dark {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 17px 30px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.25s;
+  }
+  .btn-dark:hover { background: var(--rust); transform: translateY(-2px); }
+  .btn-dark.outline {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+  }
+  .btn-dark.outline:hover { background: var(--ink); color: var(--paper); }
+  @media (max-width: 800px) { .final { padding: 80px 22px; } }
+
+  /* ============== WHATSAPP FAB ============== */
+  .wa-fab {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    z-index: 60;
+    background: #25D366;
+    color: white;
+    padding: 14px 20px 14px 18px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 13.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 16px 40px -10px rgba(37,211,102,0.5), 0 4px 12px rgba(0,0,0,0.2);
+    transition: all 0.25s;
+  }
+  .wa-fab:hover { transform: translateY(-3px); }
+  .wa-fab svg { width: 20px; height: 20px; }
+  .wa-fab span.label { font-family: var(--body); }
+  .wa-fab .ping {
+    position: absolute;
+    top: 6px; right: 6px;
+    width: 10px; height: 10px;
+    background: #ff5252;
+    border: 2px solid white;
+    border-radius: 50%;
+  }
+  @media (max-width: 600px) {
+    .wa-fab { padding: 12px; }
+    .wa-fab .label { display: none; }
+  }
+
+  /* ============== FOOTER ============== */
+  footer {
+    padding: 60px 36px 40px;
+    border-top: 1px solid var(--rule-light);
+    background: var(--ink);
+  }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 50px;
+  }
+  .foot-brand {
+    font-family: var(--display);
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    font-style: italic;
+    margin-bottom: 14px;
+  }
+  .foot-tag { color: var(--bone); font-size: 14px; line-height: 1.55; max-width: 320px; }
+  .foot-col h4 {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    margin: 0 0 18px;
+    font-weight: 500;
+  }
+  .foot-col a {
+    display: block;
+    color: var(--bone);
+    font-size: 14px;
+    padding: 4px 0;
+    transition: color 0.2s;
+  }
+  .foot-col a:hover { color: var(--paper); }
+  .foot-bottom {
+    border-top: 1px solid var(--rule-light);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bone);
+    opacity: 0.6;
+  }
+  @media (max-width: 800px) {
+    .foot-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+    footer { padding: 40px 22px 30px; }
+  }
+
+  /* ============== REVEAL ============== */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.9s, transform 0.9s; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+</style>
 </head>
 <body>
-  <h1>Welcome to MyFuture</h1>
-  <p>Your future starts here.</p>
+
+<!-- ============== NAV ============== -->
+<nav class="nav">
+  <a href="#" class="logo"><span class="dot"></span> MyFuture</a>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#stories">Stories</a>
+    <a href="#audiences">For institutions</a>
+    <a href="#trust">Trust</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <a href="#hero" class="nav-cta">Take the assessment</a>
+</nav>
+
+<!-- ============== HERO ============== -->
+<header class="hero" id="hero">
+  <div class="hero-meta">
+    <span>For African learners</span>
+    <span>EN · FR · SW · ZU</span>
+    <span>Free to start</span>
+  </div>
+
+  <div class="hero-left">
+    <span class="live-pip">
+      <span class="pulse"></span>
+      <span><span id="liveCount">1,247</span> learners this week</span>
+    </span>
+
+    <h1 class="hero-title">
+      The path that<br>
+      <em>fits who you</em><br>
+      actually <span class="stroke">are.</span>
+    </h1>
+    <p class="hero-sub">
+      Three honest questions, right here. We'll show you a path that fits — and the funding that makes it possible. Free, in your language, on your phone.
+    </p>
+
+    <div class="hero-foot">
+      <div class="hero-foot-item">
+        <div class="hero-foot-num"><em>12,400</em></div>
+        <div class="hero-foot-label">Learners onboarded</div>
+      </div>
+      <div class="hero-foot-item">
+        <div class="hero-foot-num">38</div>
+        <div class="hero-foot-label">Schools in pilot</div>
+      </div>
+      <div class="hero-foot-item">
+        <div class="hero-foot-num">3</div>
+        <div class="hero-foot-label">Countries · ZA · NG · KE</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ THE LIVE ASSESSMENT WIDGET ============ -->
+  <div class="assessment" id="assessment" aria-live="polite">
+    <div class="assessment-head">
+      <div class="assessment-tag">Live mini-assessment</div>
+      <div class="assessment-progress" id="progress">
+        <div class="progress-pip active"></div>
+        <div class="progress-pip"></div>
+        <div class="progress-pip"></div>
+      </div>
+    </div>
+
+    <div class="assessment-body">
+      <!-- ====== STEP 1 ====== -->
+      <div class="step-screen active" data-step="1">
+        <div class="q-num">Question 01 / 03</div>
+        <h2 class="q-text">When you're learning something new, what feels <em>most natural?</em></h2>
+        <div class="q-options">
+          <button class="q-option" data-tag="analytical">
+            <span>Working through a problem step-by-step</span>
+            <span class="glyph">A</span>
+          </button>
+          <button class="q-option" data-tag="systems">
+            <span>Seeing how the pieces connect together</span>
+            <span class="glyph">B</span>
+          </button>
+          <button class="q-option" data-tag="hands">
+            <span>Making something with my hands</span>
+            <span class="glyph">C</span>
+          </button>
+          <button class="q-option" data-tag="people">
+            <span>Talking it through with someone</span>
+            <span class="glyph">D</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ====== STEP 2 ====== -->
+      <div class="step-screen" data-step="2">
+        <div class="q-num">Question 02 / 03</div>
+        <h2 class="q-text">Which of these feels <em>most like</em> a great day to you?</h2>
+        <div class="q-options">
+          <button class="q-option" data-tag="build">
+            <span>Building or fixing something that didn't work before</span>
+            <span class="glyph">A</span>
+          </button>
+          <button class="q-option" data-tag="create">
+            <span>Creating something — design, music, words, an idea</span>
+            <span class="glyph">B</span>
+          </button>
+          <button class="q-option" data-tag="lead">
+            <span>Helping a group figure out what to do next</span>
+            <span class="glyph">C</span>
+          </button>
+          <button class="q-option" data-tag="research">
+            <span>Going deep on a question until you really understand it</span>
+            <span class="glyph">D</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ====== STEP 3 ====== -->
+      <div class="step-screen" data-step="3">
+        <div class="q-num">Question 03 / 03</div>
+        <h2 class="q-text">What's <em>most important</em> to you in five years?</h2>
+        <div class="q-options">
+          <button class="q-option" data-tag="impact">
+            <span>Doing work that visibly changes my community</span>
+            <span class="glyph">A</span>
+          </button>
+          <button class="q-option" data-tag="freedom">
+            <span>Independence — running my own thing or working flexibly</span>
+            <span class="glyph">B</span>
+          </button>
+          <button class="q-option" data-tag="stable">
+            <span>A stable career with a clear ladder upward</span>
+            <span class="glyph">C</span>
+          </button>
+          <button class="q-option" data-tag="craft">
+            <span>Mastery — being genuinely excellent at something specific</span>
+            <span class="glyph">D</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ====== LOADING ====== -->
+      <div class="step-screen" data-step="loading">
+        <div class="result-loading">
+          <div class="result-spinner"></div>
+          <div class="result-loading-text">Analysing your signal…</div>
+        </div>
+      </div>
+
+      <!-- ====== RESULT ====== -->
+      <div class="step-screen result-screen" data-step="result">
+        <div class="result-eyebrow">Your teaser match</div>
+        <h2 class="result-headline" id="resultTitle"><em>BSc Data Science</em></h2>
+        <div class="result-meta" id="resultMeta">University of Cape Town · Funded pathway available</div>
+
+        <div class="match-bar-wrap">
+          <div class="match-bar-label">
+            <span>Match strength</span>
+            <span class="pct" id="resultPct">94 / 100</span>
+          </div>
+          <div class="match-bar"><div id="resultBar"></div></div>
+        </div>
+
+        <div class="alt-matches" id="resultAlts"></div>
+
+        <div class="result-cta-row">
+          <a href="#" class="btn-primary">
+            Get the full report (free)
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+          </a>
+          <button class="btn-link" id="restartBtn">Start over</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="assessment-foot">
+      <div class="lang">
+        <span class="active">EN</span>
+        <span>FR</span>
+        <span>SW</span>
+        <span>ZU</span>
+      </div>
+      <div>POPIA-aligned · No sign-up to start</div>
+    </div>
+  </div>
+</header>
+
+<!-- ============== TICKER ============== -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">A continent of 1.4 billion</span>
+    <span class="ticker-item">70% under 30</span>
+    <span class="ticker-item">A guidance counsellor in every pocket</span>
+    <span class="ticker-item">Free for every learner, forever</span>
+    <span class="ticker-item">Built for Africa, by Africans</span>
+    <span class="ticker-item">A continent of 1.4 billion</span>
+    <span class="ticker-item">70% under 30</span>
+    <span class="ticker-item">A guidance counsellor in every pocket</span>
+    <span class="ticker-item">Free for every learner, forever</span>
+    <span class="ticker-item">Built for Africa, by Africans</span>
+  </div>
+</div>
+
+<!-- ============== HOW IT WORKS ============== -->
+<section id="how">
+  <div class="section-head reveal">
+    <div class="section-num">01 — How it works</div>
+    <h2 class="section-title">From who you are to <em>where you're going.</em></h2>
+  </div>
+
+  <div class="how-rail">
+    <div class="how-step reveal">
+      <div class="how-num">/01 — Discover</div>
+      <h3>Take the full assessment</h3>
+      <p>20 minutes. Multi-modal questions calibrated for African learners — not a translated American quiz.</p>
+      <div class="timing">~ 20 minutes · Free</div>
+    </div>
+    <div class="how-step reveal">
+      <div class="how-num">/02 — Map</div>
+      <h3>Get your match report</h3>
+      <p>A ranked list of degrees, apprenticeships, and skills tracks — with cost, fit, and employability shown honestly.</p>
+      <div class="timing">~ Instant · Shareable</div>
+    </div>
+    <div class="how-step reveal">
+      <div class="how-num">/03 — Fund</div>
+      <h3>See your bursaries</h3>
+      <p>We surface every bursary, scholarship, and apprenticeship you actually qualify for — and pre-fill the application.</p>
+      <div class="timing">Updated weekly</div>
+    </div>
+    <div class="how-step reveal">
+      <div class="how-num">/04 — Apply</div>
+      <h3>Track and adjust</h3>
+      <p>One place for applications, deadlines, and decisions. Talk to a real counsellor on WhatsApp any time.</p>
+      <div class="timing">Free, forever</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== STORIES ============== -->
+<section id="stories">
+  <div class="section-head reveal">
+    <div class="section-num">02 — Real stories</div>
+    <h2 class="section-title">Pathways found. <em>Lives unstuck.</em></h2>
+  </div>
+
+  <div class="stories-grid">
+    <!-- Featured story -->
+    <div class="story featured reveal">
+      <div class="story-img">
+        <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="story1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#d97e2c"/>
+              <stop offset="60%" stop-color="#7a3340"/>
+              <stop offset="100%" stop-color="#1a242a"/>
+            </linearGradient>
+            <radialGradient id="story1-glow" cx="40%" cy="40%" r="50%">
+              <stop offset="0%" stop-color="#e9a23b" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#e9a23b" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect width="400" height="500" fill="url(#story1)"/>
+          <circle cx="180" cy="200" r="180" fill="url(#story1-glow)"/>
+          <!-- Stylised silhouette -->
+          <g fill="#0c1316" opacity="0.92">
+            <ellipse cx="200" cy="220" rx="62" ry="74"/>
+            <path d="M90 500 Q90 360, 200 360 Q310 360, 310 500 Z"/>
+          </g>
+          <!-- Decorative elements -->
+          <g stroke="#e9a23b" stroke-width="0.7" fill="none" opacity="0.5">
+            <circle cx="200" cy="220" r="100"/>
+            <circle cx="200" cy="220" r="130" stroke-dasharray="2 4"/>
+          </g>
+          <text x="20" y="480" font-family="JetBrains Mono, monospace" font-size="9" fill="#f4ede1" opacity="0.6" letter-spacing="2">PRETORIA · ZA · 2025</text>
+        </svg>
+        <div class="badge">★ Featured story</div>
+      </div>
+      <div class="story-body">
+        <p class="story-pull">My family wanted me in accounting. The report showed my real strength was systems and design. I'm now in second-year architecture — on a full bursary I didn't know existed.</p>
+        <div class="story-attr">
+          <h3 class="story-name">Lebo M.</h3>
+          <div class="story-meta">Architecture · UP · Cohort 2025</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="story reveal">
+      <div class="story-img">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="story2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#889b7c"/>
+              <stop offset="100%" stop-color="#1a242a"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="300" fill="url(#story2)"/>
+          <g fill="#0c1316" opacity="0.9">
+            <ellipse cx="200" cy="130" rx="50" ry="60"/>
+            <path d="M110 300 Q110 200, 200 200 Q290 200, 290 300 Z"/>
+          </g>
+          <g stroke="#d8cdb8" stroke-width="0.5" fill="none" opacity="0.4">
+            <circle cx="200" cy="130" r="80"/>
+          </g>
+          <text x="20" y="285" font-family="JetBrains Mono, monospace" font-size="9" fill="#f4ede1" opacity="0.6" letter-spacing="2">LAGOS · NG · 2025</text>
+        </svg>
+        <div class="badge">Apprenticeship</div>
+      </div>
+      <div class="story-body">
+        <p class="story-pull">University wasn't going to happen for me financially. MyFuture matched me to a fintech apprenticeship I'd never heard of.</p>
+        <div class="story-attr">
+          <h3 class="story-name">Chinedu O.</h3>
+          <div class="story-meta">Fintech apprentice · Lagos</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="story reveal">
+      <div class="story-img">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="story3" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#6c92a8"/>
+              <stop offset="100%" stop-color="#0c1316"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="300" fill="url(#story3)"/>
+          <g fill="#0c1316" opacity="0.9">
+            <ellipse cx="200" cy="130" rx="50" ry="60"/>
+            <path d="M110 300 Q110 200, 200 200 Q290 200, 290 300 Z"/>
+          </g>
+          <g stroke="#d8cdb8" stroke-width="0.5" fill="none" opacity="0.4">
+            <circle cx="200" cy="130" r="78" stroke-dasharray="3 3"/>
+          </g>
+          <text x="20" y="285" font-family="JetBrains Mono, monospace" font-size="9" fill="#f4ede1" opacity="0.6" letter-spacing="2">NAIROBI · KE · 2025</text>
+        </svg>
+        <div class="badge">Bursary matched</div>
+      </div>
+      <div class="story-body">
+        <p class="story-pull">The bursary was hiding in plain sight. The platform pre-filled it for me in fifteen minutes.</p>
+        <div class="story-attr">
+          <h3 class="story-name">Aisha K.</h3>
+          <div class="story-meta">BCom Actuarial · Strathmore</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="story reveal">
+      <div class="story-img">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="story4" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#b3471f"/>
+              <stop offset="100%" stop-color="#1a242a"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="300" fill="url(#story4)"/>
+          <g fill="#0c1316" opacity="0.9">
+            <ellipse cx="200" cy="130" rx="50" ry="60"/>
+            <path d="M110 300 Q110 200, 200 200 Q290 200, 290 300 Z"/>
+          </g>
+          <g stroke="#e9a23b" stroke-width="0.6" fill="none" opacity="0.5">
+            <circle cx="200" cy="130" r="76"/>
+          </g>
+          <text x="20" y="285" font-family="JetBrains Mono, monospace" font-size="9" fill="#f4ede1" opacity="0.6" letter-spacing="2">DURBAN · ZA · 2025</text>
+        </svg>
+        <div class="badge">Career switch</div>
+      </div>
+      <div class="story-body">
+        <p class="story-pull">I'd already started a course I hated. The reset gave me permission to actually choose this time.</p>
+        <div class="story-attr">
+          <h3 class="story-name">Sipho N.</h3>
+          <div class="story-meta">BSc CompSci · UKZN</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="story reveal">
+      <div class="story-img">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="story5" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#7a3340"/>
+              <stop offset="100%" stop-color="#0c1316"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="300" fill="url(#story5)"/>
+          <g fill="#0c1316" opacity="0.9">
+            <ellipse cx="200" cy="130" rx="50" ry="60"/>
+            <path d="M110 300 Q110 200, 200 200 Q290 200, 290 300 Z"/>
+          </g>
+          <g stroke="#d8cdb8" stroke-width="0.5" fill="none" opacity="0.45">
+            <circle cx="200" cy="130" r="80" stroke-dasharray="2 5"/>
+          </g>
+          <text x="20" y="285" font-family="JetBrains Mono, monospace" font-size="9" fill="#f4ede1" opacity="0.6" letter-spacing="2">JOHANNESBURG · ZA · 2025</text>
+        </svg>
+        <div class="badge">Parent voice</div>
+      </div>
+      <div class="story-body">
+        <p class="story-pull">As a parent, finally a tool I could trust to take this seriously. We had a real conversation, not an argument.</p>
+        <div class="story-attr">
+          <h3 class="story-name">Mrs N. Dube</h3>
+          <div class="story-meta">Parent · Pretoria</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PARTNERS STRIP ============== -->
+<div class="partner-strip reveal">
+  <div class="partner-strip-label">— Trusted by partner schools, universities, and foundations —</div>
+  <div class="partner-grid">
+    <div class="partner"><em>Hoërskool</em> Vryheid</div>
+    <div class="partner">St Mary's <em>DSG</em></div>
+    <div class="partner"><em>Lagos</em> Prep</div>
+    <div class="partner">Strathmore <em>School</em></div>
+    <div class="partner">Curro <em>Foundation</em></div>
+    <div class="partner"><em>Allan Gray</em> Trust</div>
+    <div class="partner">UCT <em>Admissions</em></div>
+  </div>
+</div>
+
+<!-- ============== AUDIENCES (TABBED) ============== -->
+<section id="audiences">
+  <div class="section-head reveal">
+    <div class="section-num">03 — Built for everyone in the journey</div>
+    <h2 class="section-title">One platform. <em>Four roles.</em> One outcome.</h2>
+  </div>
+
+  <div class="aud-tabs reveal" id="audTabs">
+    <button class="aud-tab active" data-aud="students">Students</button>
+    <button class="aud-tab" data-aud="parents">Parents</button>
+    <button class="aud-tab" data-aud="universities">Universities</button>
+    <button class="aud-tab" data-aud="sponsors">Sponsors</button>
+  </div>
+
+  <!-- ============ STUDENTS ============ -->
+  <div class="aud-panel active" data-aud="students">
+    <div class="aud-content reveal">
+      <h3>Stop guessing. <em style="color: var(--amber);">Start choosing.</em></h3>
+      <p>You're going to make one of the biggest decisions of your life with less guidance than anyone before you. We're here to fix that — for free, in your language, on your phone.</p>
+
+      <ul class="aud-bullets">
+        <li>
+          <span class="marker">/01</span>
+          <div><strong>Calibrated for African learners</strong><span>Not a translated American quiz. Every question is built around the realities of where you actually are.</span></div>
+        </li>
+        <li>
+          <span class="marker">/02</span>
+          <div><strong>Honest about cost &amp; access</strong><span>Every recommendation comes with the full picture — fees, funding, and the realistic path to get there.</span></div>
+        </li>
+        <li>
+          <span class="marker">/03</span>
+          <div><strong>Bursaries you actually qualify for</strong><span>Updated weekly. We pre-fill the application so you don't lose hours fighting forms.</span></div>
+        </li>
+        <li>
+          <span class="marker">/04</span>
+          <div><strong>A real human counsellor on WhatsApp</strong><span>When the algorithm can't help, a person can. Available in your language during school hours.</span></div>
+        </li>
+      </ul>
+
+      <div class="aud-actions">
+        <a href="#hero" class="btn-primary">
+          Take the assessment
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+        </a>
+        <a href="#" class="btn-secondary">Watch a 90-sec demo</a>
+      </div>
+    </div>
+
+    <div class="aud-visual reveal">
+      <div class="phone-stack">
+        <div class="phone-floats">
+          <div class="float-pill f1">94% match</div>
+          <div class="float-pill f2">Bursary surfaced</div>
+          <div class="float-pill f3">Pathway found</div>
+        </div>
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-status"><span>09:24</span><span>● MYFUTURE</span></div>
+            <div class="phone-greet">Morning, <em>Thandi</em>. Ready to keep going?</div>
+            <div class="phone-card">
+              <div class="phone-card-eyebrow">Top match · 94%</div>
+              <div class="phone-card-text">BSc Data Science<br>UCT — funded</div>
+              <div class="phone-bars">
+                <div style="height: 30%;"></div>
+                <div style="height: 55%; opacity: 0.6;"></div>
+                <div style="height: 85%; opacity: 0.85;"></div>
+                <div style="height: 100%; opacity: 1;"></div>
+                <div style="height: 70%; opacity: 0.7;"></div>
+              </div>
+            </div>
+            <div class="phone-card" style="background: rgba(136,155,124,0.1); border-color: rgba(136,155,124,0.3);">
+              <div class="phone-card-eyebrow" style="color: var(--sage);">Alt path · 87%</div>
+              <div class="phone-card-text">Actuarial apprenticeship<br>Old Mutual · 4 yrs</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PARENTS ============ -->
+  <div class="aud-panel" data-aud="parents">
+    <div class="aud-content reveal">
+      <h3>A second opinion <em style="color: var(--sage);">you can actually trust.</em></h3>
+      <p>We know the cost of getting this wrong: years lost, fees burned, dreams quietly set aside. MyFuture gives your child a calm, evidence-based way to choose — and gives you the visibility to support them properly.</p>
+
+      <ul class="aud-bullets">
+        <li>
+          <span class="marker">/01</span>
+          <div><strong>POPIA-aligned, child-data first</strong><span>Built around how African children's data should be handled — never sold, never shared without consent.</span></div>
+        </li>
+        <li>
+          <span class="marker">/02</span>
+          <div><strong>Honest about cost</strong><span>Every recommendation shows fees, funding options, and pathways that don't need university.</span></div>
+        </li>
+        <li>
+          <span class="marker">/03</span>
+          <div><strong>Optional parent view</strong><span>See the report, the applications, the deadlines. We don't replace the conversation — we make it possible.</span></div>
+        </li>
+        <li>
+          <span class="marker">/04</span>
+          <div><strong>Real counsellor on call</strong><span>Stuck on a result? You can speak to a human counsellor through WhatsApp — not a chatbot.</span></div>
+        </li>
+      </ul>
+
+      <div class="aud-actions">
+        <a href="#" class="btn-primary" style="background: var(--sage);">
+          Get the parent guide (PDF)
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+        </a>
+        <a href="#" class="btn-secondary">Watch the 5-minute walkthrough</a>
+      </div>
+    </div>
+
+    <div class="aud-visual reveal">
+      <div class="parent-frame">
+        <p class="parent-quote">Finally a tool that took my child's future as seriously as we do. We had a real conversation about her path — not an argument.</p>
+        <div class="parent-attr">
+          <div class="parent-avatar">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="pa1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#889b7c"/>
+                  <stop offset="100%" stop-color="#1a242a"/>
+                </linearGradient>
+              </defs>
+              <rect width="48" height="48" fill="url(#pa1)"/>
+              <circle cx="24" cy="20" r="8" fill="#0c1316" opacity="0.85"/>
+              <path d="M10 48 Q10 32, 24 32 Q38 32, 38 48 Z" fill="#0c1316" opacity="0.85"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="parent-attr-name">Mrs N. Dube</h3>
+            <div class="parent-attr-meta">Parent · Pretoria · Cohort 2025</div>
+          </div>
+        </div>
+        <div class="parent-stats">
+          <div class="parent-stat">
+            <div class="parent-stat-num">94%</div>
+            <div class="parent-stat-label">Of parents say MyFuture made the conversation easier</div>
+          </div>
+          <div class="parent-stat">
+            <div class="parent-stat-num">2.4×</div>
+            <div class="parent-stat-label">More bursaries surfaced vs. searching alone</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ UNIVERSITIES ============ -->
+  <div class="aud-panel" data-aud="universities">
+    <div class="aud-content reveal">
+      <h3>Reach the students <em style="color: var(--sky);">who actually fit</em> your programmes.</h3>
+      <p>MyFuture sends you applicants who score highly against your programmes' actual requirements — not just learners who happened to find your prospectus. Lower your dropout rate. Improve your yield.</p>
+
+      <ul class="aud-bullets">
+        <li>
+          <span class="marker">/01</span>
+          <div><strong>Programme-fit applicants</strong><span>Filtered against your faculty's published requirements and historic success patterns.</span></div>
+        </li>
+        <li>
+          <span class="marker">/02</span>
+          <div><strong>Faculty-level dashboards</strong><span>See your applicant pipeline by programme, region, and fit score, in real time.</span></div>
+        </li>
+        <li>
+          <span class="marker">/03</span>
+          <div><strong>Plug into your existing CRM</strong><span>We integrate with most SIS / CRM stacks, or hand off via secure CSV.</span></div>
+        </li>
+        <li>
+          <span class="marker">/04</span>
+          <div><strong>Pay on enrolment</strong><span>You only pay when a matched applicant actually enrols. No upfront fees.</span></div>
+        </li>
+      </ul>
+
+      <div class="aud-actions">
+        <a href="#" class="btn-primary" style="background: var(--sky);">
+          Book a 30-min demo
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+        </a>
+        <a href="#" class="btn-secondary">Download the partner brief</a>
+      </div>
+    </div>
+
+    <div class="aud-visual reveal">
+      <div class="dash">
+        <div class="dash-bar">
+          <div class="dash-bar-title">BSc Engineering · Pipeline</div>
+          <div class="dash-pill">● Live</div>
+        </div>
+
+        <div class="dash-kpis">
+          <div class="dash-kpi">
+            <div class="dash-kpi-label">Matched</div>
+            <div class="dash-kpi-val">1,284</div>
+          </div>
+          <div class="dash-kpi">
+            <div class="dash-kpi-label">Avg fit</div>
+            <div class="dash-kpi-val"><em>87</em></div>
+          </div>
+          <div class="dash-kpi">
+            <div class="dash-kpi-label">Funded</div>
+            <div class="dash-kpi-val">412</div>
+          </div>
+        </div>
+
+        <div class="dash-chart">
+          <div class="dash-chart-label">Applicants over 6 months</div>
+          <svg viewBox="0 0 400 140" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="dashGrad" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#6c92a8" stop-opacity="0.45"/>
+                <stop offset="100%" stop-color="#6c92a8" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <g stroke="rgba(244,237,225,0.08)" stroke-width="0.5">
+              <line x1="0" y1="30" x2="400" y2="30"/>
+              <line x1="0" y1="70" x2="400" y2="70"/>
+              <line x1="0" y1="110" x2="400" y2="110"/>
+            </g>
+            <path fill="url(#dashGrad)" d="M0,130 L0,110 L60,105 L120,90 L180,75 L240,55 L300,35 L360,18 L400,12 L400,130 Z"/>
+            <path fill="none" stroke="#6c92a8" stroke-width="1.4" d="M0,110 L60,105 L120,90 L180,75 L240,55 L300,35 L360,18 L400,12"/>
+            <circle cx="0"   cy="110" r="3" fill="#6c92a8" stroke="#0c1316" stroke-width="1.5"/>
+            <circle cx="120" cy="90"  r="3" fill="#6c92a8" stroke="#0c1316" stroke-width="1.5"/>
+            <circle cx="240" cy="55"  r="3" fill="#6c92a8" stroke="#0c1316" stroke-width="1.5"/>
+            <circle cx="400" cy="12"  r="4" fill="#e9a23b" stroke="#0c1316" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SPONSORS ============ -->
+  <div class="aud-panel" data-aud="sponsors">
+    <div class="aud-content reveal">
+      <h3>Fund the right learner. <em style="color: var(--rust);">Measure the real impact.</em></h3>
+      <p>Bursary administration is broken: thousands of applicants you can't compare, learners who never knew your fund existed, and reporting that ends at "money disbursed". MyFuture changes all three.</p>
+
+      <ul class="aud-bullets">
+        <li>
+          <span class="marker">/01</span>
+          <div><strong>Smart applicant filtering</strong><span>Set your eligibility once. We surface qualified, complete applications, ranked by your scoring rubric.</span></div>
+        </li>
+        <li>
+          <span class="marker">/02</span>
+          <div><strong>Lifecycle outcome tracking</strong><span>Every funded learner from disbursement to graduation to first job. Real metrics for trustees.</span></div>
+        </li>
+        <li>
+          <span class="marker">/03</span>
+          <div><strong>White-label your fund</strong><span>Run your bursary inside MyFuture under your own brand. Your voice, our infrastructure.</span></div>
+        </li>
+        <li>
+          <span class="marker">/04</span>
+          <div><strong>API access for your reporting</strong><span>Pull anonymised cohort data straight into your annual report or B-BBEE submission.</span></div>
+        </li>
+      </ul>
+
+      <div class="aud-actions">
+        <a href="#" class="btn-primary" style="background: var(--rust);">
+          Talk to our partnerships team
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+        </a>
+        <a href="#" class="btn-secondary">See impact case study (PDF)</a>
+      </div>
+    </div>
+
+    <div class="aud-visual reveal">
+      <div class="sponsor-frame">
+        <div>
+          <p class="impact-cap">Real outcomes from one of our pilot foundation partners — 18 months in.</p>
+          <h3 class="impact-big">3.4<sup>×</sup></h3>
+          <p class="impact-cap" style="margin-top: 14px; color: var(--paper);">More qualified applicants reaching the fund — versus their previous channels.</p>
+        </div>
+
+        <div class="impact-rows">
+          <div class="impact-row">
+            <span class="l">Avg. screening time</span>
+            <span class="v"><em>− 62%</em></span>
+          </div>
+          <div class="impact-row">
+            <span class="l">Lifecycle reporting coverage</span>
+            <span class="v">100%</span>
+          </div>
+          <div class="impact-row">
+            <span class="l">Cost per qualified application</span>
+            <span class="v"><em>− 71%</em></span>
+          </div>
+          <div class="impact-row">
+            <span class="l">Graduation rate (cohort 1)</span>
+            <span class="v">94%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== TRUST ============== -->
+<section id="trust">
+  <div class="section-head reveal">
+    <div class="section-num">04 — Trust &amp; data</div>
+    <h2 class="section-title">Built for African families. <em>Held to a higher standard.</em></h2>
+  </div>
+
+  <div class="trust-grid">
+    <div class="trust-pillars reveal">
+      <div class="trust-pillar">
+        <div class="glyph">
+          <svg viewBox="0 0 24 24"><path d="M12 2l9 4v6c0 5-3.5 9-9 10-5.5-1-9-5-9-10V6l9-4z"/></svg>
+        </div>
+        <h4>POPIA-first by default</h4>
+        <p>Every learner data flow is mapped, minimised, and auditable. Parental consent for under-18s is non-negotiable.</p>
+      </div>
+      <div class="trust-pillar">
+        <div class="glyph">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <h4>No data sale, ever</h4>
+        <p>Learner data is never sold. Period. Aggregated cohort-level signal is shared only with explicit consent.</p>
+      </div>
+      <div class="trust-pillar">
+        <div class="glyph">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h4>Encryption end-to-end</h4>
+        <p>TLS in transit, AES-256 at rest. Hosted in-region for South African data, NDPR-compliant for Nigeria.</p>
+      </div>
+      <div class="trust-pillar">
+        <div class="glyph">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        </div>
+        <h4>Open methodology</h4>
+        <p>Our recommender publishes its decision logic. Every learner can see why a path was suggested — and challenge it.</p>
+      </div>
+    </div>
+
+    <div class="trust-side reveal">
+      <h3>An AI risk framework <em>built for the people it affects.</em></h3>
+      <p>MyFuture is built on a published AI risk and governance framework aligned to NIST AI RMF, with explicit child-safety controls layered on top. We treat the integrity of an algorithmic recommendation about a child's future as seriously as a regulated financial decision.</p>
+      <p>Every model update is reviewed. Every decision is explainable. Every learner has the right to know what we know about them — and to ask us to forget it.</p>
+
+      <div class="trust-marks">
+        <span class="trust-mark">POPIA</span>
+        <span class="trust-mark">NDPR</span>
+        <span class="trust-mark">Kenya DPA</span>
+        <span class="trust-mark">NIST AI RMF</span>
+        <span class="trust-mark">SOC 2 (in progress)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FAQ ============== -->
+<section id="faq">
+  <div class="section-head reveal">
+    <div class="section-num">05 — Common questions</div>
+    <h2 class="section-title">The things <em>everyone</em> asks first.</h2>
+  </div>
+
+  <div class="faq-grid reveal">
+    <details open>
+      <summary>Is the assessment really free for students?</summary>
+      <p>Yes — completely. The assessment, the match report, the bursary surfacing, and the application tracking are free for every learner, on any device, in any of our supported languages. We're paid by institutions and funders who get value from the network — never by the learners themselves.</p>
+    </details>
+    <details>
+      <summary>How long does the assessment take?</summary>
+      <p>About 20 minutes if you do it in one sitting. You can pause and pick up later from any device. We've designed it to work well on a low-end smartphone with intermittent data — a single completed assessment uses less than 5MB.</p>
+    </details>
+    <details>
+      <summary>What languages is MyFuture available in?</summary>
+      <p>Currently English, French, Swahili, and isiZulu. We're adding Yoruba, Hausa, Amharic, and Portuguese over the next two cohorts. The assessment is culturally calibrated per region — not just translated.</p>
+    </details>
+    <details>
+      <summary>How do you handle children's data and privacy?</summary>
+      <p>MyFuture is built POPIA-first, with parental consent flows for under-18 learners and strict data-minimisation throughout. Learner data is never sold. Aggregated, anonymised cohort-level signal is shared with institutional partners only — and only with explicit consent for any 1:1 outreach.</p>
+    </details>
+    <details>
+      <summary>How accurate are the recommendations?</summary>
+      <p>Our recommender draws on validated psychometric research, real outcome data from our pilot cohort, and the published requirements of partner institutions. The result is a fit score with explicit confidence bands — not a black-box answer. Every learner can see why a path was recommended, and adjust the inputs.</p>
+    </details>
+    <details>
+      <summary>How do universities and sponsors pay?</summary>
+      <p>Universities pay on enrolment for matched applicants, plus an optional dashboard subscription. Bursary sponsors pay either a per-applicant filtering fee or an annual partnership fee for white-label deployments. Schools pay a low per-learner annual licence. Pricing is transparent and tiered for the public sector.</p>
+    </details>
+    <details>
+      <summary>What if I'm not happy with my recommendations?</summary>
+      <p>You can re-take the assessment any time, or refine specific inputs (your subjects, your constraints, what's important to you) without starting over. You can also book a free 20-min call with a real counsellor through the app — they'll walk through your report with you.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ============== FINAL CTA ============== -->
+<section class="final">
+  <div class="final-inner">
+    <div class="final-eyebrow reveal">One platform · four roles</div>
+    <h2 class="reveal">A continent of <em>1.4 billion.</em><br>A guidance counsellor in every pocket.</h2>
+    <p class="reveal">Whether you're a learner choosing a path, a parent backing one, a university looking for fit, or a funder looking for impact — start here.</p>
+    <div class="final-actions reveal">
+      <a href="#hero" class="btn-dark">
+        Take the assessment
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </a>
+      <a href="#audiences" class="btn-dark outline">For institutions</a>
+      <a href="#audiences" class="btn-dark outline">Partnership enquiry</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== WHATSAPP FAB ============== -->
+<a href="https://wa.me/27000000000" class="wa-fab" aria-label="Chat to a counsellor on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span class="label">Counsellor on WhatsApp</span>
+  <span class="ping"></span>
+</a>
+
+<!-- ============== FOOTER ============== -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="foot-brand">MyFuture<span style="color: var(--ochre);">.</span></div>
+      <p class="foot-tag">A guidance platform for African learners — and the universities, parents, and funders who believe in them.</p>
+    </div>
+    <div class="foot-col">
+      <h4>For you</h4>
+      <a href="#hero">Students</a>
+      <a href="#audiences">Parents</a>
+      <a href="#audiences">Universities</a>
+      <a href="#audiences">Sponsors</a>
+    </div>
+    <div class="foot-col">
+      <h4>Reach us</h4>
+      <a href="mailto:hello@myfuture.africa">hello@myfuture.africa</a>
+      <a href="mailto:partners@myfuture.africa">partners@myfuture.africa</a>
+      <a href="#">Counsellor on WhatsApp</a>
+    </div>
+    <div class="foot-col">
+      <h4>Where</h4>
+      <a>Johannesburg, ZA</a>
+      <a>Lagos, NG</a>
+      <a>Nairobi, KE</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 MyFuture · POPIA-aligned · Crafted in Parkhurst</span>
+    <span>Privacy · Terms · Counsellor code of conduct</span>
+  </div>
+</footer>
+
+<script>
+  /* ============== REVEAL ============== */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .how-step').forEach(el => io.observe(el));
+
+  /* ============== LIVE COUNTER ============== */
+  (function liveCounter() {
+    const el = document.getElementById('liveCount');
+    if (!el) return;
+    let n = 1247;
+    setInterval(() => {
+      n += Math.random() < 0.6 ? 1 : 0;
+      el.textContent = n.toLocaleString();
+    }, 4500);
+  })();
+
+  /* ============== INTERACTIVE ASSESSMENT ============== */
+  (function assessment() {
+    const screens = document.querySelectorAll('.step-screen');
+    const pips    = document.querySelectorAll('#progress .progress-pip');
+    const restart = document.getElementById('restartBtn');
+    const answers = [];
+
+    function show(step) {
+      screens.forEach(s => s.classList.toggle('active', s.dataset.step == step));
+    }
+    function setProgress(idx) {
+      pips.forEach((p, i) => {
+        p.classList.toggle('done',   i <  idx);
+        p.classList.toggle('active', i == idx);
+      });
+    }
+
+    document.querySelectorAll('.q-option').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const screen = btn.closest('.step-screen');
+        const step = parseInt(screen.dataset.step, 10);
+        // Mark selected briefly for visual feedback
+        screen.querySelectorAll('.q-option').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        answers[step - 1] = btn.dataset.tag;
+
+        setTimeout(() => {
+          if (step < 3) {
+            show(step + 1);
+            setProgress(step);
+          } else {
+            // Show loading, then result
+            show('loading');
+            setProgress(3);
+            setTimeout(() => {
+              renderResult(answers);
+              show('result');
+            }, 1100);
+          }
+        }, 280);
+      });
+    });
+
+    restart.addEventListener('click', () => {
+      answers.length = 0;
+      document.querySelectorAll('.q-option').forEach(b => b.classList.remove('selected'));
+      setProgress(0);
+      show(1);
+    });
+
+    /* Result generator — chooses a teaser match based on answer pattern */
+    function renderResult(ans) {
+      // Lightweight scoring across a few archetypes
+      const matches = {
+        analytical: { primary: 'BSc Data Science', meta: 'University of Cape Town · Funded pathway available', pct: 94, alts: [
+          { name: 'BSc Actuarial Science', sub: 'Wits · Strong fit', fit: 89 },
+          { name: 'Actuarial Apprenticeship', sub: 'Old Mutual · 4 yrs', fit: 86 }
+        ] },
+        systems: { primary: 'BSc Engineering · Industrial', meta: 'Stellenbosch · Funded pathway available', pct: 92, alts: [
+          { name: 'BSc Computer Science', sub: 'UCT · Strong fit', fit: 88 },
+          { name: 'BCom Information Systems', sub: 'UJ · Good fit', fit: 84 }
+        ] },
+        hands: { primary: 'BEng Mechatronics', meta: 'University of Pretoria · Funded pathway available', pct: 91, alts: [
+          { name: 'BSc Architecture', sub: 'Wits · Strong fit', fit: 87 },
+          { name: 'TVET Mechatronics Diploma', sub: 'Cape Peninsula · Faster path', fit: 85 }
+        ] },
+        people: { primary: 'BCom PPE · Politics, Philosophy, Economics', meta: 'University of Cape Town · Funded pathway available', pct: 90, alts: [
+          { name: 'BA Psychology', sub: 'Stellenbosch · Strong fit', fit: 88 },
+          { name: 'BCom Marketing', sub: 'UJ · Good fit', fit: 83 }
+        ] }
+      };
+
+      // Pick by first answer (the "how you learn" question is the strongest signal)
+      const key = ans[0] || 'analytical';
+      const m = matches[key];
+
+      // Adjust fit score based on coherence of subsequent answers
+      const coherence = (ans[1] === 'research' || ans[1] === 'build' ? 2 : 0)
+                     + (ans[2] === 'craft'    || ans[2] === 'impact' ? 1 : 0);
+      const finalPct = Math.min(96, m.pct + coherence);
+
+      document.getElementById('resultTitle').innerHTML = `<em>${m.primary}</em>`;
+      document.getElementById('resultMeta').textContent  = m.meta;
+      document.getElementById('resultPct').textContent   = `${finalPct} / 100`;
+
+      // Animate match bar
+      const bar = document.getElementById('resultBar');
+      bar.style.width = '0%';
+      setTimeout(() => { bar.style.width = finalPct + '%'; }, 60);
+
+      // Render alternative matches
+      const altsEl = document.getElementById('resultAlts');
+      altsEl.innerHTML = m.alts.map(a => `
+        <div class="alt-match">
+          <div class="alt-match-name">${a.name}<small>${a.sub}</small></div>
+          <div class="alt-match-fit">${a.fit}</div>
+        </div>
+      `).join('');
+    }
+  })();
+
+  /* ============== AUDIENCE TABS ============== */
+  (function audienceTabs() {
+    const tabs   = document.querySelectorAll('.aud-tab');
+    const panels = document.querySelectorAll('.aud-panel');
+    tabs.forEach(t => {
+      t.addEventListener('click', () => {
+        const target = t.dataset.aud;
+        tabs.forEach(x => x.classList.toggle('active', x === t));
+        panels.forEach(p => p.classList.toggle('active', p.dataset.aud === target));
+        // Trigger reveal on newly active panel's reveal items
+        document.querySelectorAll(`.aud-panel.active .reveal`).forEach(el => el.classList.add('in'));
+      });
+    });
+  })();
+</script>
+
 </body>
 </html>
